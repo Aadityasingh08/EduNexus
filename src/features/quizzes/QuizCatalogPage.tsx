@@ -56,7 +56,7 @@ export const QuizCatalogPage: React.FC = () => {
 
         <button
           onClick={() => setIsGeneratorOpen(true)}
-          className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-500/20 flex items-center gap-2 transition-transform active:scale-95"
+          className="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-md shadow-amber-500/20 flex items-center gap-2 transition-transform active:scale-95"
         >
           <Plus className="w-4 h-4" />
           <span>Create Practice Quiz</span>
@@ -64,10 +64,10 @@ export const QuizCatalogPage: React.FC = () => {
       </div>
 
       {/* Featured Diagnostic Banner (Normalization) */}
-      <div className="p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-blue-950/40 via-[#111827] to-emerald-950/20 border border-slate-800 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-amber-950/40 via-[#111827] to-emerald-950/20 border border-slate-800 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-2.5 py-0.5 rounded-full border border-blue-500/20">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/20">
               High Priority Diagnostic
             </span>
             <span className="text-xs font-bold text-rose-400">Midterm Exam in 6 Days</span>
@@ -82,7 +82,7 @@ export const QuizCatalogPage: React.FC = () => {
 
         <button
           onClick={() => navigate('/quizzes/quiz-normalization')}
-          className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-500/25 transition-transform active:scale-95 flex items-center gap-2 shrink-0"
+          className="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-md shadow-amber-500/25 transition-transform active:scale-95 flex items-center gap-2 shrink-0"
         >
           <Play className="w-4 h-4 fill-current" />
           <span>Start Assessment</span>
@@ -98,7 +98,7 @@ export const QuizCatalogPage: React.FC = () => {
           >
             <div>
               <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 bg-blue-600/10 border border-blue-500/20 px-2.5 py-1 rounded-full">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-600/10 border border-amber-500/20 px-2.5 py-1 rounded-full">
                   {quiz.subject}
                 </span>
                 <span className="text-xs font-semibold text-slate-400">
@@ -116,7 +116,7 @@ export const QuizCatalogPage: React.FC = () => {
                   {quiz.questionCount} Questions
                 </span>
                 <span className="flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5 text-blue-500" />
+                  <Clock className="w-3.5 h-3.5 text-amber-500" />
                   ~{quiz.estimatedMinutes} Mins
                 </span>
               </div>
@@ -136,7 +136,7 @@ export const QuizCatalogPage: React.FC = () => {
 
             <button
               onClick={() => navigate(`/quizzes/${quiz.id}`)}
-              className="w-full py-2.5 rounded-xl bg-slate-900 dark:bg-[#161F30] hover:bg-blue-600 dark:hover:bg-blue-600 border border-slate-800 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2"
+              className="w-full py-2.5 rounded-xl bg-slate-900 dark:bg-[#161F30] hover:bg-amber-600 dark:hover:bg-amber-600 border border-slate-800 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2"
             >
               <span>{quiz.completed ? 'Retake Assessment' : 'Start Assessment'}</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -151,7 +151,7 @@ export const QuizCatalogPage: React.FC = () => {
           <div className="w-full max-w-lg bg-white dark:bg-[#111827] rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-6">
             <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
               <div className="flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-blue-500" />
+                <BookOpen className="w-5 h-5 text-amber-500" />
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                   Create Diagnostic Quiz
                 </h3>
@@ -170,7 +170,7 @@ export const QuizCatalogPage: React.FC = () => {
                 <select
                   value={selectedSubject}
                   onChange={(e) => setSelectedSubject(e.target.value)}
-                  className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-blue-500 transition-colors"
+                  className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-amber-500 transition-colors"
                 >
                   <option value="DBMS">Database Management Systems</option>
                   <option value="Python">Python Programming</option>
@@ -187,7 +187,7 @@ export const QuizCatalogPage: React.FC = () => {
                   value={selectedTopic}
                   onChange={(e) => setSelectedTopic(e.target.value)}
                   placeholder="e.g. 2NF vs 3NF Normalization"
-                  className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-blue-500 transition-colors"
+                  className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-amber-500 transition-colors"
                 />
               </div>
 
@@ -197,7 +197,7 @@ export const QuizCatalogPage: React.FC = () => {
                   <select
                     value={selectedDifficulty}
                     onChange={(e: any) => setSelectedDifficulty(e.target.value)}
-                    className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-blue-500 transition-colors"
+                    className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-amber-500 transition-colors"
                   >
                     <option value="Beginner">Beginner</option>
                     <option value="Intermediate">Intermediate</option>
@@ -210,7 +210,7 @@ export const QuizCatalogPage: React.FC = () => {
                   <select
                     value={questionCount}
                     onChange={(e) => setQuestionCount(Number(e.target.value))}
-                    className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-blue-500 transition-colors"
+                    className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-amber-500 transition-colors"
                   >
                     <option value={3}>3 Questions (Quick Sprint)</option>
                     <option value={5}>5 Questions (Standard)</option>
@@ -229,7 +229,7 @@ export const QuizCatalogPage: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-500/20 flex items-center gap-2"
+                  className="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-md shadow-amber-500/20 flex items-center gap-2"
                 >
                   <BookOpen className="w-4 h-4" />
                   <span>Generate Assessment</span>

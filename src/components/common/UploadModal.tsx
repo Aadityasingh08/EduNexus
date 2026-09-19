@@ -85,7 +85,7 @@ export const UploadModal: React.FC = () => {
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center text-blue-500">
+            <div className="w-9 h-9 rounded-xl bg-amber-600/10 border border-amber-500/20 flex items-center justify-center text-amber-500">
               <UploadCloud className="w-5 h-5" />
             </div>
             <div>
@@ -113,7 +113,7 @@ export const UploadModal: React.FC = () => {
               <div
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={handleFileDrop}
-                className="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-blue-500 bg-slate-50 dark:bg-[#0B0F19] rounded-2xl p-8 text-center transition-colors cursor-pointer"
+                className="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-amber-500 bg-slate-50 dark:bg-[#0B0F19] rounded-2xl p-8 text-center transition-colors cursor-pointer"
                 onClick={() => {
                   const input = document.createElement('input');
                   input.type = 'file';
@@ -126,7 +126,7 @@ export const UploadModal: React.FC = () => {
                   input.click();
                 }}
               >
-                <div className="w-14 h-14 rounded-2xl bg-blue-600/10 border border-blue-500/20 text-blue-500 flex items-center justify-center mx-auto mb-3">
+                <div className="w-14 h-14 rounded-2xl bg-amber-600/10 border border-amber-500/20 text-amber-500 flex items-center justify-center mx-auto mb-3">
                   <FileText className="w-7 h-7" />
                 </div>
                 <h4 className="text-sm font-semibold text-slate-900 dark:text-white">
@@ -141,7 +141,7 @@ export const UploadModal: React.FC = () => {
                   </span>
                 ) : (
                   <div className="mt-4 flex items-center justify-center gap-2">
-                    <span className="text-xs bg-white dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-lg font-medium text-blue-500">
+                    <span className="text-xs bg-white dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 px-3 py-1.5 rounded-lg font-medium text-amber-500">
                       Browse Files
                     </span>
                     <span className="text-xs text-slate-400">or load lecture notes</span>
@@ -159,7 +159,7 @@ export const UploadModal: React.FC = () => {
                 </button>
                 <button
                   onClick={handleStartAnalysis}
-                  className="px-5 py-2.5 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-500/20 flex items-center gap-2"
+                  className="px-5 py-2.5 rounded-xl text-sm font-semibold bg-amber-600 hover:bg-amber-500 text-white shadow-md shadow-amber-500/20 flex items-center gap-2"
                 >
                   <Sparkles className="w-4 h-4" />
                   Extract Concepts
@@ -174,17 +174,17 @@ export const UploadModal: React.FC = () => {
               <div className="relative w-20 h-20 mx-auto flex items-center justify-center">
                 <div className="absolute inset-0 rounded-full border-4 border-slate-200 dark:border-slate-800"></div>
                 <div
-                  className="absolute inset-0 rounded-full border-4 border-blue-500 border-t-transparent animate-spin"
+                  className="absolute inset-0 rounded-full border-4 border-amber-500 border-t-transparent animate-spin"
                   style={{ animationDuration: '1.2s' }}
                 ></div>
-                <Brain className="w-8 h-8 text-blue-500 animate-pulse" />
+                <Brain className="w-8 h-8 text-amber-500 animate-pulse" />
               </div>
 
               <div>
                 <h4 className="text-base font-bold text-slate-900 dark:text-white">
                   Extracting Concepts & Syllabus Alignment...
                 </h4>
-                <p className="text-xs text-blue-400 font-medium mt-1">
+                <p className="text-xs text-amber-400 font-medium mt-1">
                   STEP {currentStep} OF 5: {stepName}
                 </p>
               </div>
@@ -192,7 +192,7 @@ export const UploadModal: React.FC = () => {
               {/* Progress bar */}
               <div className="w-full max-w-md mx-auto bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
                 <div
-                  className="bg-blue-600 h-full transition-all duration-500 rounded-full"
+                  className="bg-amber-600 h-full transition-all duration-500 rounded-full"
                   style={{ width: `${progressPercent}%` }}
                 ></div>
               </div>
@@ -212,7 +212,7 @@ export const UploadModal: React.FC = () => {
                     <div
                       key={i}
                       className={`flex items-center gap-2 ${
-                        done ? 'text-emerald-400' : active ? 'text-blue-400 font-semibold' : 'text-slate-500'
+                        done ? 'text-emerald-400' : active ? 'text-amber-400 font-semibold' : 'text-slate-500'
                       }`}
                     >
                       {done ? (
@@ -261,7 +261,7 @@ export const UploadModal: React.FC = () => {
                   {result.detectedTopics.map((topic, idx) => (
                     <span
                       key={idx}
-                      className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-600/10 border border-blue-500/20 text-blue-400"
+                      className="px-3 py-1 rounded-full text-xs font-semibold bg-amber-600/10 border border-amber-500/20 text-amber-400"
                     >
                       {topic}
                     </span>
@@ -272,7 +272,7 @@ export const UploadModal: React.FC = () => {
               {/* Generated Summary & Insights */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800">
-                  <div className="flex items-center gap-2 mb-2 text-blue-400">
+                  <div className="flex items-center gap-2 mb-2 text-amber-400">
                     <BookOpen className="w-4 h-4" />
                     <h5 className="text-xs font-bold uppercase tracking-wider">Curriculum Summary</h5>
                   </div>
@@ -307,9 +307,9 @@ export const UploadModal: React.FC = () => {
                       handleClose();
                       navigate('/quizzes/quiz-normalization');
                     }}
-                    className="p-3 rounded-xl border border-blue-500/20 bg-blue-600/10 hover:bg-blue-600 hover:text-white group transition-all text-left"
+                    className="p-3 rounded-xl border border-amber-500/20 bg-amber-600/10 hover:bg-amber-600 hover:text-white group transition-all text-left"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-blue-400 group-hover:text-white mb-2" />
+                    <CheckCircle2 className="w-4 h-4 text-amber-400 group-hover:text-white mb-2" />
                     <p className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-white">
                       Practice Quiz
                     </p>
@@ -350,9 +350,9 @@ export const UploadModal: React.FC = () => {
                       handleClose();
                       navigate('/knowledge-map?highlight=node-dbms-norm');
                     }}
-                    className="p-3 rounded-xl border border-blue-500/20 bg-blue-600/10 hover:bg-blue-600 hover:text-white group transition-all text-left"
+                    className="p-3 rounded-xl border border-amber-500/20 bg-amber-600/10 hover:bg-amber-600 hover:text-white group transition-all text-left"
                   >
-                    <Brain className="w-4 h-4 text-blue-400 group-hover:text-white mb-2" />
+                    <Brain className="w-4 h-4 text-amber-400 group-hover:text-white mb-2" />
                     <p className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-white">
                       Knowledge Map
                     </p>
@@ -366,7 +366,7 @@ export const UploadModal: React.FC = () => {
                       handleClose();
                       navigate('/tutor?topic=Normalization');
                     }}
-                    className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#161F30] hover:bg-blue-600 hover:text-white group transition-all text-left"
+                    className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#161F30] hover:bg-amber-600 hover:text-white group transition-all text-left"
                   >
                     <BookOpen className="w-4 h-4 text-slate-400 group-hover:text-white mb-2" />
                     <p className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-white">

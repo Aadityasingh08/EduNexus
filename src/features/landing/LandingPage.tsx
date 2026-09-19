@@ -27,24 +27,24 @@ export const LandingPage: React.FC = () => {
       <nav className="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-[#111827]/80 backdrop-blur-md sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-md">
+            <div className="w-10 h-10 rounded-xl bg-amber-600 flex items-center justify-center shadow-md">
               <GraduationCap className="w-5 h-5 text-white" />
             </div>
             <div>
               <span className="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">
                 EduNexus
               </span>
-              <span className="hidden sm:inline-block ml-2 text-[10px] px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 font-bold border border-blue-500/20 font-mono">
+              <span className="hidden sm:inline-block ml-2 text-[10px] px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/20 font-mono">
                 Academic OS
               </span>
             </div>
           </div>
 
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500 dark:text-slate-400">
-            <a href="#how-it-works" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Curriculum Loop</a>
-            <a href="#features" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Ecosystem</a>
-            <a href="#intelligence-loop" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Adaptive Diagnostics</a>
-            <a href="#testimonials" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Student Results</a>
+            <a href="#how-it-works" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Curriculum Loop</a>
+            <a href="#features" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Ecosystem</a>
+            <a href="#intelligence-loop" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Adaptive Diagnostics</a>
+            <a href="#testimonials" className="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Student Results</a>
           </div>
 
           <div className="flex items-center gap-3">
@@ -56,7 +56,7 @@ export const LandingPage: React.FC = () => {
             </Link>
             <button
               onClick={() => navigate('/dashboard')}
-              className="px-5 py-2.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/20 transition-all flex items-center gap-1.5"
+              className="px-5 py-2.5 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-500 text-white shadow-md shadow-amber-600/20 transition-all flex items-center gap-1.5"
             >
               <span>Launch Workspace</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -67,7 +67,7 @@ export const LandingPage: React.FC = () => {
 
       {/* Hero Section */}
       <section className="pt-20 pb-20 px-6 max-w-7xl mx-auto text-center relative overflow-hidden">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/40 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold mb-6">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 dark:bg-amber-950/40 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-bold mb-6">
           <BookOpen className="w-3.5 h-3.5" />
           <span>The Unified Academic Operating System</span>
         </div>
@@ -83,7 +83,7 @@ export const LandingPage: React.FC = () => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
           <button
             onClick={() => navigate('/dashboard')}
-            className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-xl shadow-blue-600/20 transition-transform active:scale-95 flex items-center justify-center gap-2.5"
+            className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm shadow-xl shadow-amber-600/20 transition-transform active:scale-95 flex items-center justify-center gap-2.5"
           >
             <span>Enter Student Workspace</span>
             <ArrowRight className="w-4 h-4" />
@@ -115,7 +115,7 @@ export const LandingPage: React.FC = () => {
           <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6 bg-slate-50 dark:bg-[#0B0F19]">
             {/* Column 1: Today's Focus */}
             <div className="p-5 rounded-2xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 border border-blue-500/20 px-2.5 py-1 rounded-full font-mono">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border border-amber-500/20 px-2.5 py-1 rounded-full font-mono">
                 Today's Sprint
               </span>
               <h3 className="text-base font-bold text-slate-900 dark:text-white mt-3 mb-1">
@@ -133,14 +133,14 @@ export const LandingPage: React.FC = () => {
 
             {/* Column 2: Diagnostic Recommendation */}
             <div className="p-5 rounded-2xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs">
-              <div className="flex items-center gap-2 mb-2 text-blue-600 dark:text-blue-400">
+              <div className="flex items-center gap-2 mb-2 text-amber-600 dark:text-amber-400">
                 <BookOpen className="w-4 h-4" />
                 <span className="text-xs font-bold uppercase tracking-wider">Curriculum Diagnostic</span>
               </div>
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                 "Transitive dependency resolution in 3NF shows a slight cognitive gap. We have queued a targeted 15-minute diagnostic quiz before tomorrow's midterm."
               </p>
-              <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-blue-600 dark:text-blue-400">
+              <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-amber-600 dark:text-amber-400">
                 <span>Exam in 6 Days</span>
                 <span>Calibrated</span>
               </div>
@@ -173,7 +173,7 @@ export const LandingPage: React.FC = () => {
       {/* The Core Intelligence Loop Section */}
       <section id="intelligence-loop" className="py-20 px-6 bg-white dark:bg-[#111827] border-y border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto text-center">
-          <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 font-mono">
+          <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 font-mono">
             Structured Academic Progress
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-2 mb-4">
@@ -194,9 +194,9 @@ export const LandingPage: React.FC = () => {
             ].map((item, idx) => (
               <div
                 key={idx}
-                className="p-5 rounded-2xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-left hover:border-blue-500/40 transition-colors"
+                className="p-5 rounded-2xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-left hover:border-amber-500/40 transition-colors"
               >
-                <span className="text-[10px] font-mono font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+                <span className="text-[10px] font-mono font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">
                   {item.step}
                 </span>
                 <h4 className="text-sm font-bold text-slate-900 dark:text-white mt-2 mb-1">
@@ -214,7 +214,7 @@ export const LandingPage: React.FC = () => {
       {/* Feature Matrix */}
       <section id="features" className="py-24 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 font-mono">
+          <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 font-mono">
             Engineered For University & Technical Rigor
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-2">
@@ -224,7 +224,7 @@ export const LandingPage: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="p-8 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/40 border border-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-6">
+            <div className="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-6">
               <BookOpen className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
@@ -236,7 +236,7 @@ export const LandingPage: React.FC = () => {
           </div>
 
           <div className="p-8 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-6">
+            <div className="w-12 h-12 rounded-2xl bg-orange-50 dark:bg-orange-950/40 border border-orange-500/20 text-orange-600 dark:text-orange-400 flex items-center justify-center mb-6">
               <Brain className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
@@ -264,7 +264,7 @@ export const LandingPage: React.FC = () => {
       {/* Testimonials */}
       <section id="testimonials" className="py-20 px-6 bg-white dark:bg-[#111827] border-t border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto text-center">
-          <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 font-mono">
+          <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 font-mono">
             Student Outcomes
           </span>
           <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mt-2 mb-12">
@@ -324,7 +324,7 @@ export const LandingPage: React.FC = () => {
         </p>
         <button
           onClick={() => navigate('/dashboard')}
-          className="px-9 py-4 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-xl shadow-blue-600/20 transition-transform active:scale-95"
+          className="px-9 py-4 rounded-2xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm shadow-xl shadow-amber-600/20 transition-transform active:scale-95"
         >
           Launch EduNexus Workspace →
         </button>

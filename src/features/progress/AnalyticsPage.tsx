@@ -61,7 +61,7 @@ export const AnalyticsPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 border border-blue-500/20 px-2.5 py-0.5 rounded-full font-mono">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border border-amber-500/20 px-2.5 py-0.5 rounded-full font-mono">
               Academic Intelligence
             </span>
           </div>
@@ -81,7 +81,7 @@ export const AnalyticsPage: React.FC = () => {
               onClick={() => setTimeFilter(filter)}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                 timeFilter === filter
-                  ? 'bg-blue-600 text-white shadow-xs'
+                  ? 'bg-amber-600 text-white shadow-xs'
                   : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
@@ -94,7 +94,7 @@ export const AnalyticsPage: React.FC = () => {
       {/* TOP 5 METRIC CARDS */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
         <div className="p-5 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs">
-          <div className="flex items-center justify-between text-blue-600 dark:text-blue-400 mb-2">
+          <div className="flex items-center justify-between text-amber-600 dark:text-amber-400 mb-2">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
               Overall Progress
             </span>
@@ -109,7 +109,7 @@ export const AnalyticsPage: React.FC = () => {
         </div>
 
         <div className="p-5 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs">
-          <div className="flex items-center justify-between text-indigo-500 mb-2">
+          <div className="flex items-center justify-between text-orange-500 mb-2">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
               Weekly Study Time
             </span>
@@ -180,7 +180,7 @@ export const AnalyticsPage: React.FC = () => {
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">Hours logged per day (Mon - Sun)</p>
             </div>
-            <span className="text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 border border-blue-500/20 px-2.5 py-1 rounded-full">
+            <span className="text-xs font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border border-amber-500/20 px-2.5 py-1 rounded-full">
               Target: 2h/day
             </span>
           </div>
@@ -280,7 +280,7 @@ export const AnalyticsPage: React.FC = () => {
 
         {/* Academic Diagnostics (2 cols) */}
         <div className="lg:col-span-2 p-6 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-          <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+          <div className="flex items-center gap-2 text-amber-600 dark:text-amber-400">
             <BookOpen className="w-5 h-5" />
             <h3 className="text-base font-bold text-slate-900 dark:text-white">
               Academic Retention & Learning Diagnostics
@@ -288,8 +288,8 @@ export const AnalyticsPage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="p-4 rounded-2xl bg-blue-50 dark:bg-[#161F30] border border-blue-500/20">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 block mb-1">
+            <div className="p-4 rounded-2xl bg-amber-50 dark:bg-[#161F30] border border-amber-500/20">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 block mb-1">
                 Peak Retention Window
               </span>
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">

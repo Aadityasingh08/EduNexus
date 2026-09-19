@@ -53,7 +53,7 @@ export const ProfilePage: React.FC = () => {
           <img
             src={studentProfile.avatar}
             alt={studentProfile.name}
-            className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl object-cover border-2 border-blue-600 shadow-md"
+            className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl object-cover border-2 border-amber-600 shadow-md"
           />
           <div>
             <div className="flex items-center gap-2">
@@ -67,7 +67,7 @@ export const ProfilePage: React.FC = () => {
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">
               {studentProfile.degree} • {studentProfile.year}
             </p>
-            <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 mt-0.5">
+            <p className="text-xs font-semibold text-amber-600 dark:text-amber-400 mt-0.5">
               {studentProfile.university}
             </p>
           </div>
@@ -98,7 +98,7 @@ export const ProfilePage: React.FC = () => {
       {/* STATISTICS CARDS */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="p-5 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs text-center space-y-1">
-          <Clock className="w-5 h-5 text-indigo-500 mx-auto mb-1" />
+          <Clock className="w-5 h-5 text-orange-500 mx-auto mb-1" />
           <p className="text-2xl font-extrabold text-slate-900 dark:text-white">
             {studentProfile.totalStudyHours}h
           </p>
@@ -106,7 +106,7 @@ export const ProfilePage: React.FC = () => {
         </div>
 
         <div className="p-5 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs text-center space-y-1">
-          <BookOpen className="w-5 h-5 text-blue-600 dark:text-blue-400 mx-auto mb-1" />
+          <BookOpen className="w-5 h-5 text-amber-600 dark:text-amber-400 mx-auto mb-1" />
           <p className="text-2xl font-extrabold text-slate-900 dark:text-white">
             {studentProfile.coursesEnrolled}
           </p>
@@ -134,7 +134,7 @@ export const ProfilePage: React.FC = () => {
       <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs space-y-6">
         <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
           <div className="flex items-center gap-2">
-            <Target className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            <Target className="w-5 h-5 text-amber-600 dark:text-amber-400" />
             <h2 className="text-base font-bold text-slate-900 dark:text-white">
               Academic Goals & Study Preferences
             </h2>
@@ -153,7 +153,7 @@ export const ProfilePage: React.FC = () => {
                 disabled={!isEditing}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full mt-1.5 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs font-medium outline-none focus:border-blue-500 disabled:opacity-75"
+                className="w-full mt-1.5 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs font-medium outline-none focus:border-amber-500 disabled:opacity-75"
               />
             </div>
 
@@ -164,7 +164,7 @@ export const ProfilePage: React.FC = () => {
                 disabled={!isEditing}
                 value={targetRole}
                 onChange={(e) => setTargetRole(e.target.value)}
-                className="w-full mt-1.5 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs font-medium outline-none focus:border-blue-500 disabled:opacity-75"
+                className="w-full mt-1.5 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs font-medium outline-none focus:border-amber-500 disabled:opacity-75"
               />
             </div>
           </div>
@@ -176,7 +176,7 @@ export const ProfilePage: React.FC = () => {
               disabled={!isEditing}
               value={primaryGoal}
               onChange={(e) => setPrimaryGoal(e.target.value)}
-              className="w-full mt-1.5 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs font-medium outline-none focus:border-blue-500 disabled:opacity-75 resize-none"
+              className="w-full mt-1.5 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs font-medium outline-none focus:border-amber-500 disabled:opacity-75 resize-none"
             />
           </div>
 
@@ -187,7 +187,7 @@ export const ProfilePage: React.FC = () => {
                 disabled={!isEditing}
                 value={dailyGoalMinutes}
                 onChange={(e) => setDailyGoalMinutes(Number(e.target.value))}
-                className="w-full mt-1.5 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs outline-none focus:border-blue-500 disabled:opacity-75"
+                className="w-full mt-1.5 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs outline-none focus:border-amber-500 disabled:opacity-75"
               >
                 <option value={60}>60 minutes / day</option>
                 <option value={90}>90 minutes / day</option>
@@ -202,7 +202,7 @@ export const ProfilePage: React.FC = () => {
                 disabled={!isEditing}
                 value={preferredStudyTime}
                 onChange={(e: any) => setPreferredStudyTime(e.target.value)}
-                className="w-full mt-1.5 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs outline-none focus:border-blue-500 disabled:opacity-75"
+                className="w-full mt-1.5 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs outline-none focus:border-amber-500 disabled:opacity-75"
               >
                 <option value="Morning">Morning (8 AM - 12 PM)</option>
                 <option value="Afternoon">Afternoon (12 PM - 5 PM)</option>
@@ -217,7 +217,7 @@ export const ProfilePage: React.FC = () => {
                 disabled={!isEditing}
                 value={difficultyPreference}
                 onChange={(e: any) => setDifficultyPreference(e.target.value)}
-                className="w-full mt-1.5 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs outline-none focus:border-blue-500 disabled:opacity-75"
+                className="w-full mt-1.5 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs outline-none focus:border-amber-500 disabled:opacity-75"
               >
                 <option value="Adaptive">Adaptive (Auto-calibrated)</option>
                 <option value="Fundamentals First">Fundamentals First</option>
@@ -230,7 +230,7 @@ export const ProfilePage: React.FC = () => {
             <div className="flex justify-end pt-2">
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-600/20"
+                className="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-md shadow-amber-600/20"
               >
                 Save Preferences
               </button>
@@ -246,7 +246,7 @@ export const ProfilePage: React.FC = () => {
             Account Session
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Signed in as <span className="font-semibold text-blue-600 dark:text-blue-400">{studentProfile.name}</span> ({studentProfile.email})
+            Signed in as <span className="font-semibold text-amber-600 dark:text-amber-400">{studentProfile.name}</span> ({studentProfile.email})
           </p>
         </div>
 

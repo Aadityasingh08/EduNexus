@@ -62,7 +62,7 @@ export const CommunityPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 border border-blue-500/20 px-3 py-1 rounded-full font-mono">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border border-amber-500/20 px-3 py-1 rounded-full font-mono">
               Academic Peer Network
             </span>
           </div>
@@ -76,7 +76,7 @@ export const CommunityPage: React.FC = () => {
 
         <button
           onClick={() => setIsNewPostModalOpen(true)}
-          className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-600/20 flex items-center gap-2 transition-transform active:scale-95"
+          className="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-md shadow-amber-600/20 flex items-center gap-2 transition-transform active:scale-95"
         >
           <Plus className="w-4 h-4" />
           <span>Ask Question</span>
@@ -92,7 +92,7 @@ export const CommunityPage: React.FC = () => {
             placeholder="Search questions or discussions..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none focus:border-blue-500 shadow-xs"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none focus:border-amber-500 shadow-xs"
           />
         </div>
 
@@ -103,7 +103,7 @@ export const CommunityPage: React.FC = () => {
               onClick={() => setSelectedTag(tag)}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors shrink-0 ${
                 selectedTag === tag
-                  ? 'bg-blue-600 text-white shadow-xs'
+                  ? 'bg-amber-600 text-white shadow-xs'
                   : 'bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
@@ -128,7 +128,7 @@ export const CommunityPage: React.FC = () => {
                   <img
                     src={post.author.avatar}
                     alt={post.author.name}
-                    className="w-10 h-10 rounded-full object-cover border-2 border-blue-600/30"
+                    className="w-10 h-10 rounded-full object-cover border-2 border-amber-600/30"
                   />
                   <div>
                     <h4 className="text-xs font-bold text-slate-900 dark:text-white">
@@ -156,7 +156,7 @@ export const CommunityPage: React.FC = () => {
                 {post.tags.map((tag, idx) => (
                   <span
                     key={idx}
-                    className="px-2.5 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 text-[10px] font-bold border border-blue-500/20"
+                    className="px-2.5 py-0.5 rounded-md bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 text-[10px] font-bold border border-amber-500/20"
                   >
                     #{tag}
                   </span>
@@ -170,7 +170,7 @@ export const CommunityPage: React.FC = () => {
                     onClick={() => upvotePost(post.id)}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border transition-colors ${
                       post.userHasUpvoted
-                        ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
+                        ? 'bg-amber-600 text-white border-amber-600 shadow-xs'
                         : 'border-slate-200 dark:border-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white bg-slate-50 dark:bg-[#161F30]'
                     }`}
                   >
@@ -233,11 +233,11 @@ export const CommunityPage: React.FC = () => {
                       onKeyDown={(e) => {
                         if (e.key === 'Enter') handleSendReply(post.id);
                       }}
-                      className="flex-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none focus:border-blue-500"
+                      className="flex-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none focus:border-amber-500"
                     />
                     <button
                       onClick={() => handleSendReply(post.id)}
-                      className="px-4 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-xs flex items-center gap-1.5 transition-all"
+                      className="px-4 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold shadow-xs flex items-center gap-1.5 transition-all"
                     >
                       <Send className="w-3.5 h-3.5" />
                       <span>Reply</span>
@@ -275,7 +275,7 @@ export const CommunityPage: React.FC = () => {
                   placeholder="e.g. How do I remember 2NF vs 3NF easily?"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
-                  className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none focus:border-blue-500"
+                  className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none focus:border-amber-500"
                 />
               </div>
 
@@ -287,7 +287,7 @@ export const CommunityPage: React.FC = () => {
                   placeholder="Describe where you are stuck or what concept seems counter-intuitive..."
                   value={newContent}
                   onChange={(e) => setNewContent(e.target.value)}
-                  className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none focus:border-blue-500 resize-none"
+                  className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none focus:border-amber-500 resize-none"
                 />
               </div>
 
@@ -298,7 +298,7 @@ export const CommunityPage: React.FC = () => {
                   placeholder="DBMS, Normalization, Exam"
                   value={newTagsString}
                   onChange={(e) => setNewTagsString(e.target.value)}
-                  className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none focus:border-blue-500"
+                  className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none focus:border-amber-500"
                 />
               </div>
 
@@ -312,7 +312,7 @@ export const CommunityPage: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-600/20"
+                  className="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-md shadow-amber-600/20"
                 >
                   Publish Question
                 </button>

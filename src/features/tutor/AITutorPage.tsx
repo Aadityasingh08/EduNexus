@@ -138,7 +138,7 @@ export const AITutorPage: React.FC = () => {
       <div className="hidden lg:flex w-64 flex-col border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0E1524] select-none">
         <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <BookOpen className="w-4 h-4 text-blue-500" />
+            <BookOpen className="w-4 h-4 text-amber-500" />
             <span className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
               Syllabus Topics
             </span>
@@ -150,7 +150,7 @@ export const AITutorPage: React.FC = () => {
                 createNewTutorSession(newTopic);
               }
             }}
-            className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-blue-500 transition-colors"
+            className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-amber-500 transition-colors"
             title="Start New Topic"
           >
             <Plus className="w-4 h-4" />
@@ -164,12 +164,12 @@ export const AITutorPage: React.FC = () => {
               onClick={() => setActiveTutorSessionId(session.id)}
               className={`p-3 rounded-xl cursor-pointer transition-all border ${
                 session.id === activeSession.id
-                  ? 'bg-blue-600/10 border-blue-500/30 text-white'
+                  ? 'bg-amber-600/10 border-amber-500/30 text-white'
                   : 'bg-transparent hover:bg-slate-100 dark:hover:bg-slate-850 border-transparent text-slate-700 dark:text-slate-300'
               }`}
             >
               <div className="flex items-center justify-between mb-1">
-                <span className="text-[10px] font-bold text-blue-500 uppercase">
+                <span className="text-[10px] font-bold text-amber-500 uppercase">
                   {session.courseName}
                 </span>
                 <span className="text-[10px] text-slate-400">{session.lastActive}</span>
@@ -198,7 +198,7 @@ export const AITutorPage: React.FC = () => {
         {/* Chat Top Banner */}
         <div className="px-6 py-3.5 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0E1524] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-blue-600/10 border border-blue-500/20 text-blue-500 flex items-center justify-center font-bold">
+            <div className="w-9 h-9 rounded-xl bg-amber-600/10 border border-amber-500/20 text-amber-500 flex items-center justify-center font-bold">
               <BookOpen className="w-4 h-4" />
             </div>
             <div>
@@ -206,7 +206,7 @@ export const AITutorPage: React.FC = () => {
                 <h2 className="text-sm font-bold text-slate-900 dark:text-white">
                   {currentTopic}
                 </h2>
-                <span className="text-[10px] bg-blue-600/10 border border-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full font-bold">
+                <span className="text-[10px] bg-amber-600/10 border border-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full font-bold">
                   CS204 • Database Management Systems
                 </span>
               </div>
@@ -243,7 +243,7 @@ export const AITutorPage: React.FC = () => {
               <div
                 className={`max-w-2xl rounded-2xl p-4 sm:p-5 text-xs sm:text-sm leading-relaxed shadow-sm ${
                   msg.sender === 'user'
-                    ? 'bg-blue-600 text-white rounded-tr-none'
+                    ? 'bg-amber-600 text-white rounded-tr-none'
                     : 'bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 rounded-tl-none space-y-3.5'
                 }`}
               >
@@ -256,7 +256,7 @@ export const AITutorPage: React.FC = () => {
                 {msg.breakdown && (
                   <div className="mt-3 space-y-2.5 pt-3 border-t border-slate-100 dark:border-slate-800">
                     <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-blue-500 dark:text-blue-400 block mb-1">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-amber-500 dark:text-amber-400 block mb-1">
                         Applied Example
                       </span>
                       <p className="text-xs text-slate-700 dark:text-slate-200">
@@ -317,7 +317,7 @@ export const AITutorPage: React.FC = () => {
                       </button>
                       <button
                         onClick={() => saveMessageToNotes(msg.id, msg.content)}
-                        className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-blue-500 transition-colors"
+                        className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-amber-500 transition-colors"
                         title="Save to Course Notes"
                       >
                         <Bookmark className="w-3.5 h-3.5" />
@@ -335,13 +335,13 @@ export const AITutorPage: React.FC = () => {
                     <div className="flex flex-wrap items-center gap-1.5">
                       <button
                         onClick={() => handlePromptChip('Explain simpler')}
-                        className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[11px] font-semibold text-blue-500 dark:text-blue-400 hover:bg-blue-600 hover:text-white transition-colors"
+                        className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[11px] font-semibold text-amber-500 dark:text-amber-400 hover:bg-amber-600 hover:text-white transition-colors"
                       >
                         Explain simpler
                       </button>
                       <button
                         onClick={() => handlePromptChip('Give me an analogy')}
-                        className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[11px] font-semibold text-indigo-500 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white transition-colors"
+                        className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[11px] font-semibold text-orange-500 dark:text-orange-400 hover:bg-orange-600 hover:text-white transition-colors"
                       >
                         Give analogy
                       </button>
@@ -362,9 +362,9 @@ export const AITutorPage: React.FC = () => {
           {isTyping && (
             <div className="flex items-center gap-2 p-4 rounded-2xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 max-w-xs text-xs text-slate-500">
               <div className="flex gap-1">
-                <span className="w-2 h-2 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: '0ms' }} />
-                <span className="w-2 h-2 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: '150ms' }} />
-                <span className="w-2 h-2 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: '300ms' }} />
+                <span className="w-2 h-2 rounded-full bg-amber-500 animate-bounce" style={{ animationDelay: '0ms' }} />
+                <span className="w-2 h-2 rounded-full bg-amber-500 animate-bounce" style={{ animationDelay: '150ms' }} />
+                <span className="w-2 h-2 rounded-full bg-amber-500 animate-bounce" style={{ animationDelay: '300ms' }} />
               </div>
               <span className="font-medium">Formulating concept breakdown...</span>
             </div>
@@ -388,7 +388,7 @@ export const AITutorPage: React.FC = () => {
             <button
               key={i}
               onClick={() => handlePromptChip(promptText)}
-              className="px-3 py-1 rounded-full bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-200 hover:border-blue-500 hover:text-blue-500 shrink-0 transition-colors"
+              className="px-3 py-1 rounded-full bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-200 hover:border-amber-500 hover:text-amber-500 shrink-0 transition-colors"
             >
               {promptText}
             </button>
@@ -402,12 +402,12 @@ export const AITutorPage: React.FC = () => {
               e.preventDefault();
               handleSendMessage();
             }}
-            className="flex items-center gap-2 bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 rounded-2xl p-2 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500/20 transition-all"
+            className="flex items-center gap-2 bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-700 rounded-2xl p-2 focus-within:border-amber-500 focus-within:ring-1 focus-within:ring-amber-500/20 transition-all"
           >
             <button
               type="button"
               onClick={handleSpeechInput}
-              className={`p-2 rounded-xl text-slate-400 hover:text-blue-500 transition-colors ${
+              className={`p-2 rounded-xl text-slate-400 hover:text-amber-500 transition-colors ${
                 isListening ? 'text-rose-500 animate-pulse bg-rose-500/10' : ''
               }`}
               title="Voice Input"
@@ -421,7 +421,7 @@ export const AITutorPage: React.FC = () => {
                 const sample = prompt('Attach notes or code snippet text:');
                 if (sample) setInputPrompt(prev => prev + ' ' + sample);
               }}
-              className="p-2 rounded-xl text-slate-400 hover:text-blue-500 transition-colors"
+              className="p-2 rounded-xl text-slate-400 hover:text-amber-500 transition-colors"
               title="Attach context or code"
             >
               <Paperclip className="w-5 h-5" />
@@ -438,7 +438,7 @@ export const AITutorPage: React.FC = () => {
             <button
               type="submit"
               disabled={!inputPrompt.trim() || isTyping}
-              className="p-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white disabled:opacity-40 transition-all shadow-sm font-medium"
+              className="p-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white disabled:opacity-40 transition-all shadow-sm font-medium"
             >
               <Send className="w-4 h-4" />
             </button>
@@ -450,7 +450,7 @@ export const AITutorPage: React.FC = () => {
       <div className="hidden xl:flex w-80 flex-col border-l border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#0E1524] overflow-y-auto p-5 space-y-5 select-none">
         <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
           <div className="flex items-center gap-2">
-            <Brain className="w-4 h-4 text-blue-500" />
+            <Brain className="w-4 h-4 text-amber-500" />
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
               Curriculum Diagnostics
             </h3>
@@ -510,7 +510,7 @@ export const AITutorPage: React.FC = () => {
               <span
                 key={i}
                 onClick={() => handleSendMessage(`Explain how ${rel} relates to ${currentTopic}`)}
-                className="px-2.5 py-1 rounded-lg text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20 hover:bg-blue-500 hover:text-white cursor-pointer transition-colors"
+                className="px-2.5 py-1 rounded-lg text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500 hover:text-white cursor-pointer transition-colors"
               >
                 {rel}
               </span>
@@ -530,8 +530,8 @@ export const AITutorPage: React.FC = () => {
         </div>
 
         {/* Recommended Action */}
-        <div className="p-4 rounded-2xl bg-white dark:bg-[#111827] border border-blue-500/20 shadow-xs space-y-3">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400">
+        <div className="p-4 rounded-2xl bg-white dark:bg-[#111827] border border-amber-500/20 shadow-xs space-y-3">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
             Recommended Action:
           </span>
           <p className="text-xs text-slate-600 dark:text-slate-300">
@@ -552,7 +552,7 @@ export const AITutorPage: React.FC = () => {
               });
               navigate('/study-plan');
             }}
-            className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5"
+            className="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5"
           >
             <span>+ Add 20 Min Practice Sprint</span>
             <ArrowRight className="w-3.5 h-3.5" />

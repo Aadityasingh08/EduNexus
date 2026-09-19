@@ -191,7 +191,7 @@ const loadInitialState = () => {
     isAuthenticated: false,
     studentProfile: initialStudentProfile,
     courses: initialCourses,
-    activeCourseId: 'course-dbms',
+    activeCourseId: 'course-cn',
     knowledgeNodes: initialKnowledgeNodes,
     knowledgeEdges: initialKnowledgeEdges,
     selectedNodeId: 'node-dbms-norm',
@@ -262,7 +262,7 @@ export const useEduNexusStore = create<EduNexusState>((set, get) => {
         primaryGoal: userData.primaryGoal,
         avatar:
           userData.avatar ||
-          'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+          'https://api.dicebear.com/7.x/avataaars/svg?seed=User2&backgroundColor=b6e3f4',
         streakDays: 1,
         totalStudyHours: 2.5,
         quizzesTaken: 1,

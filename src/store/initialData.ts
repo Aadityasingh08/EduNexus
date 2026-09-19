@@ -17,7 +17,7 @@ export const initialStudentProfile: StudentProfile = {
   id: 'student-user-01',
   name: 'Student',
   email: 'student@edunexus.edu',
-  avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+  avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User&backgroundColor=ffdfbf',
   degree: 'B.Tech in Computer Science',
   year: 'Year 3 • Semester 5',
   university: 'University Institute of Technology',
@@ -36,6 +36,49 @@ export const initialStudentProfile: StudentProfile = {
 };
 
 export const initialCourses: Course[] = [
+  {
+    id: 'course-cn',
+    code: 'CS302',
+    title: 'Computer Network and Protocols',
+    instructor: 'Dr. Vivek Sharma',
+    category: 'Computer Science',
+    color: '#8B4513',
+    progressPercent: 45,
+    totalLessons: 24,
+    completedLessons: 11,
+    currentTopic: 'TCP/IP Model & Routing Algorithms',
+    currentLessonId: 'lesson-cn-01',
+    difficulty: 'Advanced',
+    timeRemaining: '8h 20m remaining',
+    lastStudied: 'Just now',
+    description: 'In-depth study of computer networking concepts, including OSI and TCP/IP models, routing, switching, and application protocols.',
+    notes: [
+      'OSI Model has 7 layers: Physical, Data Link, Network, Transport, Session, Presentation, Application.',
+      'TCP is reliable and connection-oriented, while UDP is connectionless and faster.',
+      'Routing algorithms: Distance Vector (Bellman-Ford) and Link State (Dijkstra).'
+    ],
+    lessons: [
+      {
+        id: 'lesson-cn-intro',
+        title: 'Introduction to Networking & OSI Model',
+        durationMinutes: 45,
+        completed: true,
+        type: 'video',
+        summary: 'Overview of network topologies, physical media, and the 7-layer OSI reference model.',
+        keyConcepts: ['OSI Model', 'Topologies', 'Physical Layer']
+      },
+      {
+        id: 'lesson-cn-01',
+        title: 'Routing Algorithms (Link State & Distance Vector)',
+        durationMinutes: 60,
+        completed: false,
+        type: 'interactive',
+        summary: 'Understanding how routers determine the optimal path using Dijkstra and Bellman-Ford algorithms.',
+        keyConcepts: ['Routing', 'Dijkstra', 'Bellman-Ford', 'BGP'],
+        transcript: `Welcome to Routing Algorithms. In this module, we will explore how data packets find their way across the internet.`
+      }
+    ]
+  },
   {
     id: 'course-dbms',
     code: 'CS204',
@@ -909,7 +952,7 @@ export const initialCommunityPosts: CommunityPost[] = [
     id: 'post-01',
     author: {
       name: 'Priya Patel',
-      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80',
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User&backgroundColor=ffdfbf',
       role: 'CS Sophomore • Peer Mentor'
     },
     title: 'How do I easily remember the difference between 2NF and 3NF without memorizing formal proofs?',
@@ -924,7 +967,7 @@ export const initialCommunityPosts: CommunityPost[] = [
         id: 'rep-01',
         author: {
           name: 'Senior Student',
-          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80'
+          avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User&backgroundColor=ffdfbf'
         },
         content: 'Remember the classic mantra by Bill Kent: "The key, the whole key, and nothing but the key, so help me Codd!"\n- 1NF = The key\n- 2NF = The WHOLE key (no depending on half a composite key)\n- 3NF = NOTHING BUT the key (no non-key depending on another non-key).',
         timestamp: '1 hour ago',
@@ -934,7 +977,7 @@ export const initialCommunityPosts: CommunityPost[] = [
         id: 'rep-02',
         author: {
           name: 'Devon Vance',
-          avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80'
+          avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User&backgroundColor=ffdfbf'
         },
         content: 'Also: 2NF is ONLY a concern if your Candidate Key has 2+ attributes! If candidate key is just 1 column, you jump straight to 3NF check.',
         timestamp: '45 mins ago',
@@ -946,7 +989,7 @@ export const initialCommunityPosts: CommunityPost[] = [
     id: 'post-02',
     author: {
       name: 'Rohan Mehta',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80',
+      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User&backgroundColor=ffdfbf',
       role: 'CS Junior'
     },
     title: 'Best approach for mastering Graph traversal (BFS vs DFS) for LeetCode medium questions?',
@@ -961,7 +1004,7 @@ export const initialCommunityPosts: CommunityPost[] = [
         id: 'rep-03',
         author: {
           name: 'Ananya Rao',
-          avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80'
+          avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User&backgroundColor=ffdfbf'
         },
         content: 'Shortest path on unweighted graph? -> BFS always. Exhaustive search, path finding, or cycle detection on directed graph? -> DFS with recursion/visited array.',
         timestamp: '3 hours ago',

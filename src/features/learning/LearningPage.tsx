@@ -54,7 +54,7 @@ export const LearningPage: React.FC = () => {
               placeholder="Search curriculum courses..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 pr-4 py-2 rounded-xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 text-xs outline-none focus:border-blue-500 w-60 text-slate-900 dark:text-slate-100 placeholder-slate-400"
+              className="pl-9 pr-4 py-2 rounded-xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 text-xs outline-none focus:border-amber-500 w-60 text-slate-900 dark:text-slate-100 placeholder-slate-400"
             />
           </div>
         </div>
@@ -68,7 +68,7 @@ export const LearningPage: React.FC = () => {
             onClick={() => setActiveTab(tab)}
             className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
               activeTab === tab
-                ? 'bg-blue-600 text-white shadow-sm'
+                ? 'bg-amber-600 text-white shadow-sm'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
             }`}
           >
@@ -94,7 +94,7 @@ export const LearningPage: React.FC = () => {
                     {course.code.slice(0, 2)}
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-blue-500">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-amber-500">
                       {course.code}
                     </span>
                     <h3 className="text-base font-bold text-slate-900 dark:text-white line-clamp-1">
@@ -107,7 +107,7 @@ export const LearningPage: React.FC = () => {
                   onClick={() => toggleSaveCourse(course.id)}
                   className={`p-2 rounded-xl border transition-colors ${
                     course.isSaved
-                      ? 'bg-blue-600 text-white border-blue-600'
+                      ? 'bg-amber-600 text-white border-amber-600'
                       : 'border-slate-200 dark:border-slate-800 text-slate-400 hover:text-slate-200'
                   }`}
                   title="Bookmark Course"
@@ -129,7 +129,7 @@ export const LearningPage: React.FC = () => {
                 </div>
                 <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
                   <span>{course.completedLessons}/{course.totalLessons} Syllabus Modules</span>
-                  <span className="font-bold text-blue-500">{course.progressPercent}%</span>
+                  <span className="font-bold text-amber-500">{course.progressPercent}%</span>
                 </div>
               </div>
 
@@ -157,14 +157,14 @@ export const LearningPage: React.FC = () => {
             <div className="flex items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
               <button
                 onClick={() => navigate(`/learning/${course.id}`)}
-                className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5"
+                className="flex-1 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5"
               >
                 <Play className="w-3.5 h-3.5 fill-current" />
                 <span>Open Syllabus</span>
               </button>
               <button
                 onClick={() => navigate(`/tutor?topic=${encodeURIComponent(course.currentTopic)}`)}
-                className="p-2.5 rounded-xl border border-blue-500/20 bg-blue-600/10 text-blue-400 hover:bg-blue-600 hover:text-white transition-colors"
+                className="p-2.5 rounded-xl border border-amber-500/20 bg-amber-600/10 text-amber-400 hover:bg-amber-600 hover:text-white transition-colors"
                 title="Ask Academic Tutor about this course"
               >
                 <BookOpen className="w-4 h-4" />

@@ -39,11 +39,11 @@ export const ResourcesPage: React.FC = () => {
       case 'PDF':
         return <FileText className="w-5 h-5 text-rose-500" />;
       case 'Video':
-        return <Video className="w-5 h-5 text-blue-500" />;
+        return <Video className="w-5 h-5 text-amber-500" />;
       case 'Assignment':
         return <FileCode className="w-5 h-5 text-emerald-500" />;
       case 'Article':
-        return <BookOpen className="w-5 h-5 text-indigo-500" />;
+        return <BookOpen className="w-5 h-5 text-orange-500" />;
       default:
         return <FileText className="w-5 h-5 text-amber-500" />;
     }
@@ -63,7 +63,7 @@ export const ResourcesPage: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 border border-blue-500/20 px-3 py-1 rounded-full font-mono">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border border-amber-500/20 px-3 py-1 rounded-full font-mono">
               Curriculum Repository
             </span>
           </div>
@@ -77,7 +77,7 @@ export const ResourcesPage: React.FC = () => {
 
         <button
           onClick={() => toggleUploadModal(true)}
-          className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-600/20 flex items-center gap-2 transition-transform active:scale-95"
+          className="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-md shadow-amber-600/20 flex items-center gap-2 transition-transform active:scale-95"
         >
           <UploadCloud className="w-4 h-4" />
           <span>Upload Academic Material</span>
@@ -94,7 +94,7 @@ export const ResourcesPage: React.FC = () => {
               placeholder="Search courses, topics, or skills (e.g. Normalization, Lambdas)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none focus:border-blue-500"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none focus:border-amber-500"
             />
           </div>
 
@@ -102,7 +102,7 @@ export const ResourcesPage: React.FC = () => {
             onClick={() => setOnlySaved(!onlySaved)}
             className={`px-4 py-2.5 rounded-xl border text-xs font-semibold flex items-center gap-2 transition-colors ${
               onlySaved
-                ? 'bg-blue-600 text-white border-blue-600 shadow-xs'
+                ? 'bg-amber-600 text-white border-amber-600 shadow-xs'
                 : 'border-slate-200 dark:border-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white bg-slate-50 dark:bg-[#161F30]'
             }`}
           >
@@ -122,7 +122,7 @@ export const ResourcesPage: React.FC = () => {
                 onClick={() => setSelectedSubject(sub)}
                 className={`px-2.5 py-1 rounded-lg font-semibold transition-colors ${
                   selectedSubject === sub
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-amber-600 text-white'
                     : 'bg-slate-50 dark:bg-[#161F30] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
@@ -140,7 +140,7 @@ export const ResourcesPage: React.FC = () => {
                 onClick={() => setSelectedType(type)}
                 className={`px-2.5 py-1 rounded-lg font-semibold transition-colors ${
                   selectedType === type
-                    ? 'bg-indigo-600 text-white'
+                    ? 'bg-orange-600 text-white'
                     : 'bg-slate-50 dark:bg-[#161F30] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
@@ -165,7 +165,7 @@ export const ResourcesPage: React.FC = () => {
                     {getTypeIcon(res.type)}
                   </div>
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 font-mono">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 font-mono">
                       {res.subject} • {res.type}
                     </span>
                     <h3 className="text-sm font-bold text-slate-900 dark:text-white line-clamp-1">
@@ -178,7 +178,7 @@ export const ResourcesPage: React.FC = () => {
                   onClick={() => toggleSaveResource(res.id)}
                   className={`p-1.5 rounded-lg border transition-colors ${
                     res.isSaved
-                      ? 'bg-blue-600 text-white border-blue-600'
+                      ? 'bg-amber-600 text-white border-amber-600'
                       : 'border-slate-200 dark:border-slate-800 text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}
                   title="Bookmark"
@@ -203,7 +203,7 @@ export const ResourcesPage: React.FC = () => {
             <div className="flex items-center gap-2 pt-3 border-t border-slate-200 dark:border-slate-800">
               <button
                 onClick={() => handleOpenResource(res.title)}
-                className="flex-1 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5"
+                className="flex-1 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5"
               >
                 <span>Open Material</span>
                 <ExternalLink className="w-3.5 h-3.5" />

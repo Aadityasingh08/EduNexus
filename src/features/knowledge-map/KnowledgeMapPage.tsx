@@ -163,7 +163,7 @@ export const KnowledgeMapPage: React.FC = () => {
               <span className="text-slate-700 dark:text-slate-300">Mastered (80%+)</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-blue-500" />
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
               <span className="text-slate-700 dark:text-slate-300">Learning (60-79%)</span>
             </div>
             <div className="flex items-center gap-1.5">
@@ -367,7 +367,7 @@ export const KnowledgeMapPage: React.FC = () => {
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
           <div className="flex items-center gap-2">
-            <Brain className="w-5 h-5 text-blue-500" />
+            <Brain className="w-5 h-5 text-amber-500" />
             <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
               Curriculum Node Inspector
             </span>
@@ -383,7 +383,7 @@ export const KnowledgeMapPage: React.FC = () => {
 
         {/* Concept Title & Mastery Bar */}
         <div>
-          <span className="text-[10px] font-bold uppercase tracking-wider text-blue-500">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-500">
             {selectedNode.category} Module
           </span>
           <h2 className="text-xl font-extrabold text-slate-900 dark:text-white mt-0.5 mb-2">
@@ -441,7 +441,7 @@ export const KnowledgeMapPage: React.FC = () => {
                   );
                   if (match) selectNode(match.id);
                 }}
-                className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 hover:bg-blue-600 hover:text-white cursor-pointer transition-colors"
+                className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-600 hover:text-white cursor-pointer transition-colors"
               >
                 {r}
               </span>
@@ -468,7 +468,7 @@ export const KnowledgeMapPage: React.FC = () => {
             onClick={() =>
               navigate(`/tutor?topic=${encodeURIComponent(selectedNode.label)}`)
             }
-            className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition-transform active:scale-95 flex items-center justify-center gap-2"
+            className="w-full py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-md shadow-amber-500/20 transition-transform active:scale-95 flex items-center justify-center gap-2"
           >
             <BookOpen className="w-4 h-4" />
             <span>Study Topic with Academic Tutor</span>

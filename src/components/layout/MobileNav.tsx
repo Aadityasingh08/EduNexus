@@ -74,9 +74,9 @@ export const MobileNav: React.FC = () => {
                     key={item.to}
                     to={item.to}
                     onClick={() => setIsDrawerOpen(false)}
-                    className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-900 dark:text-slate-100 hover:border-blue-500/40"
+                    className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-900 dark:text-slate-100 hover:border-amber-500/40"
                   >
-                    <Icon className="w-4 h-4 text-blue-500" />
+                    <Icon className="w-4 h-4 text-amber-500" />
                     <span>{item.label}</span>
                   </NavLink>
                 );
@@ -109,7 +109,7 @@ export const MobileNav: React.FC = () => {
               className={({ isActive }) =>
                 `flex flex-col items-center gap-1 py-1 px-3 rounded-lg text-[10px] font-semibold transition-colors ${
                   isActive
-                    ? 'text-blue-500'
+                    ? 'text-amber-500'
                     : 'text-slate-400 hover:text-slate-200'
                 }`
               }
@@ -123,7 +123,7 @@ export const MobileNav: React.FC = () => {
         <button
           onClick={() => setIsDrawerOpen(!isDrawerOpen)}
           className={`flex flex-col items-center gap-1 py-1 px-3 rounded-lg text-[10px] font-semibold transition-colors ${
-            isDrawerOpen ? 'text-blue-500' : 'text-slate-400'
+            isDrawerOpen ? 'text-amber-500' : 'text-slate-400'
           }`}
         >
           <Menu className="w-5 h-5" />

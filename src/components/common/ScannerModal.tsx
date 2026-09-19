@@ -42,7 +42,7 @@ export const ScannerModal: React.FC = () => {
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-blue-600/10 border border-blue-500/20 text-blue-500 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-amber-600/10 border border-amber-500/20 text-amber-500 flex items-center justify-center">
               <Camera className="w-5 h-5" />
             </div>
             <div>
@@ -68,19 +68,19 @@ export const ScannerModal: React.FC = () => {
                 {/* Laser scan line when scanning */}
                 {isScanning && (
                   <div
-                    className="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent shadow-[0_0_15px_#2563EB] animate-bounce"
+                    className="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent shadow-[0_0_15px_#2563EB] animate-bounce"
                     style={{ animationDuration: '1.5s' }}
                   />
                 )}
 
                 {/* Viewfinder corners */}
-                <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-blue-500" />
-                <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-blue-500" />
-                <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-blue-500" />
-                <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-blue-500" />
+                <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-amber-500" />
+                <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-amber-500" />
+                <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-amber-500" />
+                <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-amber-500" />
 
                 <div className="text-center p-6 z-10">
-                  <Scan className={`w-12 h-12 mx-auto mb-2 ${isScanning ? 'text-blue-400 animate-spin' : 'text-slate-400'}`} />
+                  <Scan className={`w-12 h-12 mx-auto mb-2 ${isScanning ? 'text-amber-400 animate-spin' : 'text-slate-400'}`} />
                   <p className="text-sm font-medium text-slate-200">
                     {isScanning ? scanStatus : 'Position lecture notes, whiteboard formulas, or textbook diagram'}
                   </p>
@@ -94,7 +94,7 @@ export const ScannerModal: React.FC = () => {
                 <button
                   disabled={isScanning}
                   onClick={handleCapture}
-                  className="px-6 py-3 rounded-xl font-semibold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/25 flex items-center gap-2 transition-all disabled:opacity-50"
+                  className="px-6 py-3 rounded-xl font-semibold bg-amber-600 hover:bg-amber-500 text-white shadow-lg shadow-amber-500/25 flex items-center gap-2 transition-all disabled:opacity-50"
                 >
                   {isScanning ? (
                     <>
@@ -129,8 +129,8 @@ export const ScannerModal: React.FC = () => {
                 </pre>
               </div>
 
-              <div className="p-4 rounded-xl bg-blue-600/10 border border-blue-500/20">
-                <div className="flex items-center gap-2 mb-2 text-blue-400">
+              <div className="p-4 rounded-xl bg-amber-600/10 border border-amber-500/20">
+                <div className="flex items-center gap-2 mb-2 text-amber-400">
                   <Sparkles className="w-4 h-4" />
                   <p className="text-xs font-bold uppercase tracking-wider">
                     Curriculum Concept Walkthrough:
@@ -153,7 +153,7 @@ export const ScannerModal: React.FC = () => {
                     handleClose();
                     navigate('/tutor?topic=Normalization');
                   }}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white flex items-center gap-1.5 transition-colors"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-amber-600 hover:bg-amber-500 text-white flex items-center gap-1.5 transition-colors"
                 >
                   <BookOpen className="w-3.5 h-3.5" />
                   Ask Academic Tutor

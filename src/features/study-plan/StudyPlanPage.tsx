@@ -80,7 +80,7 @@ export const StudyPlanPage: React.FC = () => {
 
         <button
           onClick={() => setIsAddModalOpen(true)}
-          className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-500/20 flex items-center gap-2 transition-transform active:scale-95"
+          className="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-md shadow-amber-500/20 flex items-center gap-2 transition-transform active:scale-95"
         >
           <Plus className="w-4 h-4" />
           <span>Add Study Session</span>
@@ -91,15 +91,15 @@ export const StudyPlanPage: React.FC = () => {
       {adaptiveSuggestions.filter((s) => s.status === 'pending').map((suggestion) => (
         <div
           key={suggestion.id}
-          className="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-blue-950/30 via-[#111827] to-slate-900 border border-slate-800 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+          className="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-amber-950/30 via-[#111827] to-slate-900 border border-slate-800 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4"
         >
           <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-blue-600/20 border border-blue-500/30 text-blue-400 flex items-center justify-center shrink-0 shadow-sm">
+            <div className="w-10 h-10 rounded-2xl bg-amber-600/20 border border-amber-500/30 text-amber-400 flex items-center justify-center shrink-0 shadow-sm">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 bg-blue-600/10 px-2 py-0.5 rounded-full border border-blue-500/20">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-600/10 px-2 py-0.5 rounded-full border border-amber-500/20">
                   Adaptive Syllabus Recommendation
                 </span>
                 <span className="text-xs font-bold text-slate-900 dark:text-white">
@@ -140,7 +140,7 @@ export const StudyPlanPage: React.FC = () => {
               onClick={() => setActiveTab(tab)}
               className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
                 activeTab === tab
-                  ? 'bg-blue-600 text-white shadow-sm'
+                  ? 'bg-amber-600 text-white shadow-sm'
                   : 'text-slate-400 hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
               }`}
             >
@@ -157,7 +157,7 @@ export const StudyPlanPage: React.FC = () => {
               onClick={() => setCalendarView(view)}
               className={`px-3 py-1 rounded-lg text-xs font-semibold transition-colors ${
                 calendarView === view
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-amber-600 text-white'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
@@ -185,7 +185,7 @@ export const StudyPlanPage: React.FC = () => {
 
         <div className="w-full bg-slate-200 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
           <div
-            className="bg-gradient-to-r from-blue-600 to-emerald-500 h-full rounded-full transition-all duration-500"
+            className="bg-gradient-to-r from-amber-600 to-emerald-500 h-full rounded-full transition-all duration-500"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
@@ -197,7 +197,7 @@ export const StudyPlanPage: React.FC = () => {
         <div>
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <CalendarIcon className="w-5 h-5 text-blue-500" />
+              <CalendarIcon className="w-5 h-5 text-amber-500" />
               Today's Timeline
             </h3>
             <span className="text-xs text-slate-400">{todaySessions.length} Planned Sessions</span>
@@ -210,7 +210,7 @@ export const StudyPlanPage: React.FC = () => {
                 className={`p-4 sm:p-5 rounded-2xl border transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
                   session.completed
                     ? 'bg-slate-50/50 dark:bg-[#111827]/40 border-slate-200 dark:border-slate-800/60 opacity-60'
-                    : 'bg-white dark:bg-[#111827] border-slate-200 dark:border-slate-800 hover:border-blue-500/40 shadow-xs'
+                    : 'bg-white dark:bg-[#111827] border-slate-200 dark:border-slate-800 hover:border-amber-500/40 shadow-xs'
                 }`}
               >
                 <div className="flex items-start gap-4">
@@ -218,11 +218,11 @@ export const StudyPlanPage: React.FC = () => {
                     type="checkbox"
                     checked={session.completed}
                     onChange={() => toggleSessionComplete(session.id)}
-                    className="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer mt-0.5"
+                    className="w-5 h-5 rounded border-slate-300 text-amber-600 focus:ring-amber-500 cursor-pointer mt-0.5"
                   />
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 bg-blue-600/10 border border-blue-500/20 px-2.5 py-0.5 rounded-full">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-600/10 border border-amber-500/20 px-2.5 py-0.5 rounded-full">
                         {session.subject}
                       </span>
                       <span className="text-xs font-mono text-slate-400 flex items-center gap-1">
@@ -230,7 +230,7 @@ export const StudyPlanPage: React.FC = () => {
                         {session.timeSlot} ({session.durationMinutes}m)
                       </span>
                       {session.aiSuggested && (
-                        <span className="text-[10px] font-bold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded-full flex items-center gap-1">
+                        <span className="text-[10px] font-bold text-orange-400 bg-orange-500/10 border border-orange-500/20 px-2 py-0.5 rounded-full flex items-center gap-1">
                           <Sparkles className="w-3 h-3" /> Adaptive
                         </span>
                       )}
@@ -256,7 +256,7 @@ export const StudyPlanPage: React.FC = () => {
                       const newTime = prompt('Enter new time slot:', session.timeSlot);
                       if (newTime) rescheduleSession(session.id, session.date, newTime);
                     }}
-                    className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-blue-400 transition-colors"
+                    className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-amber-400 transition-colors"
                     title="Reschedule"
                   >
                     <Edit2 className="w-4 h-4" />
@@ -278,7 +278,7 @@ export const StudyPlanPage: React.FC = () => {
         <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <CalendarIcon className="w-5 h-5 text-indigo-400" />
+              <CalendarIcon className="w-5 h-5 text-orange-400" />
               Tomorrow's Preview (Sunday, Sept 20)
             </h3>
             <span className="text-xs text-slate-400">{tomorrowSessions.length} Sessions</span>
@@ -292,7 +292,7 @@ export const StudyPlanPage: React.FC = () => {
               >
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded-full">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-orange-400 bg-orange-500/10 border border-orange-500/20 px-2 py-0.5 rounded-full">
                       {session.subject}
                     </span>
                     <span className="text-xs font-mono text-slate-400">{session.timeSlot}</span>
@@ -304,7 +304,7 @@ export const StudyPlanPage: React.FC = () => {
 
                 <button
                   onClick={() => rescheduleSession(session.id, '2026-09-19', '17:00 - 18:00')}
-                  className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-semibold text-blue-400 hover:bg-blue-600/10 transition-colors"
+                  className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-semibold text-amber-400 hover:bg-amber-600/10 transition-colors"
                 >
                   Move to Today
                 </button>
@@ -339,7 +339,7 @@ export const StudyPlanPage: React.FC = () => {
                   placeholder="e.g. Practice BCNF Decomposition Problems"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
-                  className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-blue-500 transition-colors"
+                  className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-amber-500 transition-colors"
                 />
               </div>
 
@@ -349,7 +349,7 @@ export const StudyPlanPage: React.FC = () => {
                   <select
                     value={newSubject}
                     onChange={(e) => setNewSubject(e.target.value)}
-                    className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-blue-500 transition-colors"
+                    className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-amber-500 transition-colors"
                   >
                     <option value="DBMS">DBMS (CS204)</option>
                     <option value="Python">Python (CS101)</option>
@@ -365,7 +365,7 @@ export const StudyPlanPage: React.FC = () => {
                     value={newTimeSlot}
                     onChange={(e) => setNewTimeSlot(e.target.value)}
                     placeholder="18:00 - 19:00"
-                    className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-blue-500 transition-colors"
+                    className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-amber-500 transition-colors"
                   />
                 </div>
               </div>
@@ -376,7 +376,7 @@ export const StudyPlanPage: React.FC = () => {
                   <select
                     value={newType}
                     onChange={(e: any) => setNewType(e.target.value)}
-                    className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-blue-500 transition-colors"
+                    className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-amber-500 transition-colors"
                   >
                     <option value="practice">Practice</option>
                     <option value="lecture">Lecture</option>
@@ -390,7 +390,7 @@ export const StudyPlanPage: React.FC = () => {
                   <select
                     value={newPriority}
                     onChange={(e: any) => setNewPriority(e.target.value)}
-                    className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-blue-500 transition-colors"
+                    className="w-full mt-1 p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs outline-none focus:border-amber-500 transition-colors"
                   >
                     <option value="high">High Priority</option>
                     <option value="medium">Medium</option>
@@ -409,7 +409,7 @@ export const StudyPlanPage: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-500/20"
+                  className="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-md shadow-amber-500/20"
                 >
                   Add to Schedule
                 </button>

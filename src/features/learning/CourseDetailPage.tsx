@@ -77,7 +77,7 @@ export const CourseDetailPage: React.FC = () => {
           </button>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-bold tracking-wider text-blue-600 dark:text-blue-400 uppercase font-mono">
+              <span className="text-[11px] font-bold tracking-wider text-amber-600 dark:text-amber-400 uppercase font-mono">
                 {course.code}
               </span>
               <span className="text-xs text-slate-400">•</span>
@@ -94,14 +94,14 @@ export const CourseDetailPage: React.FC = () => {
         <div className="flex items-center gap-2.5">
           <button
             onClick={() => navigate(`/tutor?topic=${encodeURIComponent(course.currentTopic)}`)}
-            className="px-4 py-2.5 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 font-bold text-xs border border-blue-500/30 hover:bg-blue-600 hover:text-white transition-all flex items-center gap-2"
+            className="px-4 py-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 font-bold text-xs border border-amber-500/30 hover:bg-amber-600 hover:text-white transition-all flex items-center gap-2"
           >
             <BookOpen className="w-4 h-4" />
             <span>Consult Course Companion</span>
           </button>
           <button
             onClick={() => navigate('/quizzes/quiz-normalization')}
-            className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-600/20 flex items-center gap-1.5 transition-all"
+            className="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-md shadow-amber-600/20 flex items-center gap-1.5 transition-all"
           >
             <span>Take Diagnostic Quiz</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -127,7 +127,7 @@ export const CourseDetailPage: React.FC = () => {
             <div className="text-center z-10 my-auto">
               <button
                 onClick={() => setIsPlaying(!isPlaying)}
-                className="w-16 h-16 rounded-full bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center mx-auto shadow-xl transition-transform active:scale-95 border-2 border-white/20"
+                className="w-16 h-16 rounded-full bg-amber-600 hover:bg-amber-500 text-white flex items-center justify-center mx-auto shadow-xl transition-transform active:scale-95 border-2 border-white/20"
               >
                 {isPlaying ? (
                   <Pause className="w-7 h-7 fill-current" />
@@ -190,7 +190,7 @@ export const CourseDetailPage: React.FC = () => {
                 onClick={() =>
                   navigate(`/tutor?topic=${encodeURIComponent(activeLesson.title)}`)
                 }
-                className="px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 text-xs font-bold hover:bg-blue-600 hover:text-white transition-all flex items-center gap-1 border border-blue-500/20"
+                className="px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 text-xs font-bold hover:bg-amber-600 hover:text-white transition-all flex items-center gap-1 border border-amber-500/20"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Explain Concept</span>
@@ -207,7 +207,7 @@ export const CourseDetailPage: React.FC = () => {
                   <span
                     key={i}
                     onClick={() => navigate(`/tutor?topic=${encodeURIComponent(k)}`)}
-                    className="px-3 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-300 text-xs font-semibold border border-blue-500/20 hover:border-blue-500/50 cursor-pointer transition-colors"
+                    className="px-3 py-1 rounded-lg bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-300 text-xs font-semibold border border-amber-500/20 hover:border-amber-500/50 cursor-pointer transition-colors"
                   >
                     {k}
                   </span>
@@ -235,10 +235,10 @@ export const CourseDetailPage: React.FC = () => {
           <div className="p-6 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <ListOrdered className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                <ListOrdered className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                 Course Modules ({course.lessons.length})
               </h3>
-              <span className="text-xs font-bold text-blue-600 dark:text-blue-400">
+              <span className="text-xs font-bold text-amber-600 dark:text-amber-400">
                 {course.progressPercent}% Done
               </span>
             </div>
@@ -250,7 +250,7 @@ export const CourseDetailPage: React.FC = () => {
                   onClick={() => setActiveLessonId(lesson.id)}
                   className={`p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between ${
                     lesson.id === activeLesson.id
-                      ? 'bg-blue-50 dark:bg-blue-950/40 border-blue-500/40 text-blue-600 dark:text-blue-300 shadow-xs'
+                      ? 'bg-amber-50 dark:bg-amber-950/40 border-amber-500/40 text-amber-600 dark:text-amber-300 shadow-xs'
                       : 'hover:bg-slate-50 dark:hover:bg-[#161F30] border-slate-200 dark:border-slate-800'
                   }`}
                 >
@@ -260,7 +260,7 @@ export const CourseDetailPage: React.FC = () => {
                       <p
                         className={`text-xs font-bold truncate ${
                           lesson.id === activeLesson.id
-                            ? 'text-blue-600 dark:text-blue-300'
+                            ? 'text-amber-600 dark:text-amber-300'
                             : 'text-slate-800 dark:text-slate-200'
                         }`}
                       >
@@ -284,7 +284,7 @@ export const CourseDetailPage: React.FC = () => {
           <div className="p-6 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <FileText className="w-4 h-4 text-indigo-500" />
+                <FileText className="w-4 h-4 text-orange-500" />
                 Course Revision Notes
               </h3>
               <span className="text-xs text-slate-500 dark:text-slate-400">{course.notes.length} Notes</span>
@@ -296,11 +296,11 @@ export const CourseDetailPage: React.FC = () => {
                 value={newNoteText}
                 onChange={(e) => setNewNoteText(e.target.value)}
                 placeholder="Jot down a quick revision formula, theorem, or query..."
-                className="w-full p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none focus:border-blue-500 resize-none h-20"
+                className="w-full p-3 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none focus:border-amber-500 resize-none h-20"
               />
               <button
                 type="submit"
-                className="w-full py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm"
+                className="w-full py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-sm"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Save Revision Note</span>

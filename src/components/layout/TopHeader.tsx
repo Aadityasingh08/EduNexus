@@ -54,7 +54,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
           className="flex-1 flex items-center justify-between px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-[#111827] border border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700 transition-colors shadow-2xs"
         >
           <div className="flex items-center gap-2.5">
-            <Search className="w-4 h-4 text-blue-500" />
+            <Search className="w-4 h-4 text-amber-500" />
             <span className="hidden sm:inline">Search courses, syllabus, notes, problem sets...</span>
             <span className="sm:hidden">Search EduNexus...</span>
           </div>
@@ -69,7 +69,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
         {/* Upload Notes Quick Trigger */}
         <button
           onClick={() => toggleUploadModal(true)}
-          className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-blue-600/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 hover:bg-blue-600 hover:text-white transition-all shadow-2xs"
+          className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-amber-600/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 hover:bg-amber-600 hover:text-white transition-all shadow-2xs"
           title="Upload notes for automated concept extraction"
         >
           <UploadCloud className="w-3.5 h-3.5" />
@@ -79,7 +79,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
         {/* Focus Mode button */}
         <button
           onClick={() => toggleFocusMode(true)}
-          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-indigo-600/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 hover:bg-indigo-600 hover:text-white transition-all shadow-2xs"
+          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-orange-600/10 text-orange-600 dark:text-orange-400 border border-orange-500/20 hover:bg-orange-600 hover:text-white transition-all shadow-2xs"
           title="Enter distraction-free study sprint"
         >
           <Maximize2 className="w-3.5 h-3.5" />
@@ -98,7 +98,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
         {/* Theme Toggle Button */}
         <button
           onClick={toggleTheme}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-800/80 text-xs font-bold text-slate-700 dark:text-slate-200 hover:border-blue-500 transition-all shadow-2xs cursor-pointer"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-800/80 text-xs font-bold text-slate-700 dark:text-slate-200 hover:border-amber-500 transition-all shadow-2xs cursor-pointer"
           title={`Switch to ${studentProfile.theme === 'dark' ? 'Light' : 'Dark'} mode`}
         >
           {studentProfile.theme === 'dark' ? (
@@ -108,7 +108,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
             </>
           ) : (
             <>
-              <Moon className="w-3.5 h-3.5 text-indigo-600 fill-indigo-600" />
+              <Moon className="w-3.5 h-3.5 text-orange-600 fill-orange-600" />
               <span className="hidden sm:inline text-[11px]">Dark Mode</span>
             </>
           )}
@@ -132,7 +132,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
             src={studentProfile.avatar}
             alt={studentProfile.name}
             title={studentProfile.name}
-            className="w-8 h-8 rounded-xl object-cover border border-blue-500/40 shadow-xs"
+            className="w-8 h-8 rounded-xl object-cover border border-amber-500/40 shadow-xs"
           />
 
           <button

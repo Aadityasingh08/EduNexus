@@ -75,7 +75,7 @@ export const FocusModeModal: React.FC = () => {
       {/* Top Controls */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-white shadow-md shadow-blue-500/20">
+          <div className="w-9 h-9 rounded-xl bg-amber-600 flex items-center justify-center font-bold text-white shadow-md shadow-amber-500/20">
             EN
           </div>
           <div>
@@ -87,7 +87,7 @@ export const FocusModeModal: React.FC = () => {
         <div className="flex items-center gap-4">
           {/* Ambient selector */}
           <div className="hidden sm:flex items-center gap-2 bg-[#161F30] border border-slate-800 px-3 py-1.5 rounded-xl text-xs">
-            <button onClick={() => setIsMuted(!isMuted)} className="hover:text-blue-400 transition-colors">
+            <button onClick={() => setIsMuted(!isMuted)} className="hover:text-amber-400 transition-colors">
               {isMuted ? <VolumeX className="w-4 h-4 text-rose-400" /> : <Volume2 className="w-4 h-4 text-emerald-400" />}
             </button>
             <select
@@ -129,7 +129,7 @@ export const FocusModeModal: React.FC = () => {
               onClick={() => setTimerDuration(mins)}
               className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
                 selectedDuration === mins
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
+                  ? 'bg-amber-600 text-white shadow-md shadow-amber-500/30'
                   : 'bg-[#161F30] border border-slate-800 text-slate-400 hover:text-white'
               }`}
             >
@@ -154,7 +154,7 @@ export const FocusModeModal: React.FC = () => {
 
           <button
             onClick={() => setIsRunning(!isRunning)}
-            className="px-8 py-4 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-base shadow-xl shadow-blue-500/25 flex items-center gap-3 transition-transform active:scale-95"
+            className="px-8 py-4 rounded-2xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-base shadow-xl shadow-amber-500/25 flex items-center gap-3 transition-transform active:scale-95"
           >
             {isRunning ? (
               <>
@@ -190,7 +190,7 @@ export const FocusModeModal: React.FC = () => {
                       type="checkbox"
                       checked={session.completed}
                       onChange={() => {}}
-                      className="w-4 h-4 rounded text-blue-600 cursor-pointer"
+                      className="w-4 h-4 rounded text-amber-600 cursor-pointer"
                     />
                     <span
                       className={`text-xs truncate ${
@@ -210,12 +210,12 @@ export const FocusModeModal: React.FC = () => {
           <div className="bg-[#111827] border border-slate-800 rounded-2xl p-4 shadow-md flex flex-col">
             <div className="flex items-center justify-between mb-2">
               <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                <FileText className="w-3.5 h-3.5 text-blue-400" />
+                <FileText className="w-3.5 h-3.5 text-amber-400" />
                 Study Notes & Formula Scratchpad
               </h4>
               <button
                 onClick={handleSaveNotes}
-                className="text-[11px] font-semibold text-blue-400 hover:underline"
+                className="text-[11px] font-semibold text-amber-400 hover:underline"
               >
                 Save to Course
               </button>

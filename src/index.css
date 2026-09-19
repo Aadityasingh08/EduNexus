@@ -13,8 +13,8 @@
     --nexus-muted: #64748B;
     
     /* Academic Theme Palettes (Brown / Coffee) */
-    --nexus-blue: #8B4513; /* SaddleBrown */
-    --nexus-blue-soft: rgba(139, 69, 19, 0.08);
+    --nexus-amber: #8B4513; /* SaddleBrown */
+    --nexus-amber-soft: rgba(139, 69, 19, 0.08);
     --nexus-emerald: #10B981;
     --nexus-emerald-soft: rgba(16, 185, 129, 0.08);
     --nexus-amber: #F59E0B;

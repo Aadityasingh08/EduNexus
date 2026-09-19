@@ -96,7 +96,7 @@ export const QuizRunnerPage: React.FC = () => {
           {/* Top Progress & Info Bar */}
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-500 dark:text-blue-400 bg-blue-600/10 border border-blue-500/20 px-3 py-1 rounded-full">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-500 dark:text-amber-400 bg-amber-600/10 border border-amber-500/20 px-3 py-1 rounded-full">
                 {quiz.subject} • Diagnostic Assessment
               </span>
               <h2 className="text-xl font-bold text-slate-900 dark:text-white mt-2">
@@ -105,7 +105,7 @@ export const QuizRunnerPage: React.FC = () => {
             </div>
 
             <div className="flex items-center gap-2 font-mono text-xs font-bold text-slate-500 dark:text-slate-400 bg-white dark:bg-[#111827] px-3.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-              <Clock className="w-3.5 h-3.5 text-blue-500" />
+              <Clock className="w-3.5 h-3.5 text-amber-500" />
               <span>{formattedTime}</span>
             </div>
           </div>
@@ -120,7 +120,7 @@ export const QuizRunnerPage: React.FC = () => {
             </div>
             <div className="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
               <div
-                className="bg-blue-600 h-full rounded-full transition-all duration-300"
+                className="bg-amber-600 h-full rounded-full transition-all duration-300"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
@@ -129,7 +129,7 @@ export const QuizRunnerPage: React.FC = () => {
           {/* Question Card */}
           <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-500 dark:text-blue-400 mb-2 block">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-500 dark:text-amber-400 mb-2 block">
                 Topic: {currentQ.topic}
               </span>
               <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-relaxed">
@@ -148,7 +148,7 @@ export const QuizRunnerPage: React.FC = () => {
                       onClick={() => handleSelectOption(option)}
                       className={`p-4 rounded-2xl border transition-all cursor-pointer flex items-center justify-between ${
                         isSelected
-                          ? 'bg-blue-600/10 dark:bg-blue-950/40 border-blue-500 text-blue-500 dark:text-blue-400 font-semibold shadow-xs'
+                          ? 'bg-amber-600/10 dark:bg-amber-950/40 border-amber-500 text-amber-500 dark:text-amber-400 font-semibold shadow-xs'
                           : 'bg-slate-50 dark:bg-[#161F30] hover:bg-slate-100 dark:hover:bg-[#1c273d] border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200'
                       }`}
                     >
@@ -156,7 +156,7 @@ export const QuizRunnerPage: React.FC = () => {
                         <span
                           className={`w-6 h-6 rounded-full border flex items-center justify-center text-xs font-bold ${
                             isSelected
-                              ? 'bg-blue-600 text-white border-blue-600'
+                              ? 'bg-amber-600 text-white border-amber-600'
                               : 'border-slate-300 dark:border-slate-700 text-slate-400'
                           }`}
                         >
@@ -164,7 +164,7 @@ export const QuizRunnerPage: React.FC = () => {
                         </span>
                         <span className="text-xs sm:text-sm">{option}</span>
                       </div>
-                      {isSelected && <CheckCircle2 className="w-4 h-4 text-blue-500" />}
+                      {isSelected && <CheckCircle2 className="w-4 h-4 text-amber-500" />}
                     </div>
                   );
                 })}
@@ -181,7 +181,7 @@ export const QuizRunnerPage: React.FC = () => {
                       onClick={() => handleSelectOption(val)}
                       className={`p-5 rounded-2xl border text-center transition-all cursor-pointer font-bold text-sm ${
                         isSelected
-                          ? 'bg-blue-600/10 dark:bg-blue-950/40 border-blue-500 text-blue-500 dark:text-blue-400'
+                          ? 'bg-amber-600/10 dark:bg-amber-950/40 border-amber-500 text-amber-500 dark:text-amber-400'
                           : 'bg-slate-50 dark:bg-[#161F30] hover:bg-slate-100 dark:hover:bg-[#1c273d] border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200'
                       }`}
                     >
@@ -202,7 +202,7 @@ export const QuizRunnerPage: React.FC = () => {
                     setShortAnswerInput(e.target.value);
                     handleSelectOption(e.target.value);
                   }}
-                  className="w-full p-4 rounded-2xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-sm outline-none focus:border-blue-500 transition-colors"
+                  className="w-full p-4 rounded-2xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-sm outline-none focus:border-amber-500 transition-colors"
                 />
               </div>
             )}
@@ -217,7 +217,7 @@ export const QuizRunnerPage: React.FC = () => {
 
               <button
                 onClick={handleNextOrSubmit}
-                className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-500/20 flex items-center gap-2 transition-transform active:scale-95"
+                className="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-md shadow-amber-500/20 flex items-center gap-2 transition-transform active:scale-95"
               >
                 <span>
                   {currentQuestionIndex < quiz.questions.length - 1
@@ -234,9 +234,9 @@ export const QuizRunnerPage: React.FC = () => {
         diagnosticResult && (
           <div className="space-y-6 animate-scale-up">
             {/* Celebration Header */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-[#111827] to-blue-950 border border-slate-800 text-white shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-[#111827] to-amber-950 border border-slate-800 text-white shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-6">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider bg-blue-500/20 text-blue-300 border border-blue-500/30 px-3 py-1 rounded-full">
+                <span className="text-[10px] font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30 px-3 py-1 rounded-full">
                   Diagnostic Assessment Complete
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extrabold mt-3">
@@ -249,7 +249,7 @@ export const QuizRunnerPage: React.FC = () => {
 
               <div className="flex items-center gap-3">
                 <div className="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md text-center">
-                  <span className="text-2xl font-bold font-mono text-blue-400">
+                  <span className="text-2xl font-bold font-mono text-amber-400">
                     {formattedTime}
                   </span>
                   <p className="text-[10px] text-slate-400">Time Spent</p>
@@ -259,7 +259,7 @@ export const QuizRunnerPage: React.FC = () => {
 
             {/* AI Misconception Diagnosis Card */}
             <div className="p-6 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-              <div className="flex items-center gap-2 text-blue-500">
+              <div className="flex items-center gap-2 text-amber-500">
                 <Brain className="w-5 h-5" />
                 <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-white">
                   Curriculum Diagnostic Analysis
@@ -301,9 +301,9 @@ export const QuizRunnerPage: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <button
                 onClick={() => navigate('/knowledge-map?highlight=node-dbms-norm')}
-                className="p-4 rounded-2xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 hover:border-blue-500/40 text-slate-900 dark:text-white font-bold text-xs shadow-xs transition-all flex flex-col items-center justify-center text-center gap-2 group"
+                className="p-4 rounded-2xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 hover:border-amber-500/40 text-slate-900 dark:text-white font-bold text-xs shadow-xs transition-all flex flex-col items-center justify-center text-center gap-2 group"
               >
-                <Brain className="w-5 h-5 text-blue-500 group-hover:scale-110 transition-transform" />
+                <Brain className="w-5 h-5 text-amber-500 group-hover:scale-110 transition-transform" />
                 <span>Open in Knowledge Map</span>
                 <span className="text-[10px] text-slate-400">
                   Updated concept mastery node
@@ -325,11 +325,11 @@ export const QuizRunnerPage: React.FC = () => {
                 onClick={() =>
                   navigate(`/tutor?topic=${encodeURIComponent(diagnosticResult.recommendedRevisionTopic || 'Normalization')}`)
                 }
-                className="p-4 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition-all flex flex-col items-center justify-center text-center gap-2 group"
+                className="p-4 rounded-2xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-md shadow-amber-500/20 transition-all flex flex-col items-center justify-center text-center gap-2 group"
               >
                 <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span>Practice with Academic Tutor</span>
-                <span className="text-[10px] text-blue-100">
+                <span className="text-[10px] text-amber-100">
                   Step-by-step clarification
                 </span>
               </button>

@@ -42,7 +42,7 @@ export const GlobalSearchModal: React.FC = () => {
       <div className="w-full max-w-2xl bg-white dark:bg-[#111827] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
         {/* Search Input Bar */}
         <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-200 dark:border-slate-800">
-          <Search className="w-5 h-5 text-blue-500" />
+          <Search className="w-5 h-5 text-amber-500" />
           <input
             type="text"
             placeholder="Search courses, curriculum topics, quizzes, study notes... (Try 'Normalization')"
@@ -67,22 +67,22 @@ export const GlobalSearchModal: React.FC = () => {
           {/* Quick AI Suggestion */}
           <div
             onClick={() => handleSelect(`/tutor?topic=${encodeURIComponent(query || 'Normalization')}`)}
-            className="flex items-center justify-between p-3.5 rounded-xl bg-blue-600/10 border border-blue-500/20 cursor-pointer hover:bg-blue-600/15 transition-colors group"
+            className="flex items-center justify-between p-3.5 rounded-xl bg-amber-600/10 border border-amber-500/20 cursor-pointer hover:bg-amber-600/15 transition-colors group"
           >
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold">
+              <div className="w-8 h-8 rounded-lg bg-amber-600 flex items-center justify-center text-white font-bold">
                 <BookOpen className="w-4 h-4" />
               </div>
               <div>
                 <p className="text-sm font-semibold text-slate-900 dark:text-white">
                   Study "{query || 'Normalization'}" with Academic Syllabus Tutor
                 </p>
-                <p className="text-xs text-blue-400">
+                <p className="text-xs text-amber-400">
                   Concept breakdown, worked examples, common exam pitfalls, and practice questions
                 </p>
               </div>
             </div>
-            <ArrowRight className="w-4 h-4 text-blue-400 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 text-amber-400 group-hover:translate-x-1 transition-transform" />
           </div>
 
           {/* Matched Knowledge Nodes */}
@@ -99,11 +99,11 @@ export const GlobalSearchModal: React.FC = () => {
                     className="flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer transition-colors"
                   >
                     <div className="flex items-center gap-2.5">
-                      <Brain className="w-4 h-4 text-blue-400" />
+                      <Brain className="w-4 h-4 text-amber-400" />
                       <span className="text-sm font-medium text-slate-900 dark:text-slate-100">
                         {node.label}
                       </span>
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 font-medium">
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 font-medium">
                         {node.category}
                       </span>
                     </div>
@@ -130,7 +130,7 @@ export const GlobalSearchModal: React.FC = () => {
                     className="flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer transition-colors"
                   >
                     <div className="flex items-center gap-2.5">
-                      <BookOpen className="w-4 h-4 text-blue-500" />
+                      <BookOpen className="w-4 h-4 text-amber-500" />
                       <div>
                         <p className="text-sm font-medium text-slate-900 dark:text-slate-100">
                           {course.title}
@@ -140,7 +140,7 @@ export const GlobalSearchModal: React.FC = () => {
                         </p>
                       </div>
                     </div>
-                    <span className="text-xs px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 font-bold border border-blue-500/20">
+                    <span className="text-xs px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 font-bold border border-amber-500/20">
                       {course.progressPercent}%
                     </span>
                   </div>

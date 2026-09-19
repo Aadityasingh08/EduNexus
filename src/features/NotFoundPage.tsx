@@ -7,7 +7,7 @@ export const NotFoundPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#0B0F19] flex flex-col items-center justify-center p-6 text-center text-slate-900 dark:text-slate-100">
-      <div className="w-16 h-16 rounded-3xl bg-blue-50 dark:bg-blue-950/40 border border-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-6 shadow-md">
+      <div className="w-16 h-16 rounded-3xl bg-amber-50 dark:bg-amber-950/40 border border-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-6 shadow-md">
         <BookOpen className="w-8 h-8" />
       </div>
 
@@ -28,7 +28,7 @@ export const NotFoundPage: React.FC = () => {
         </button>
         <button
           onClick={() => navigate('/dashboard')}
-          className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-600/20 flex items-center gap-1.5 transition-all"
+          className="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-md shadow-amber-600/20 flex items-center gap-1.5 transition-all"
         >
           <Home className="w-4 h-4" />
           <span>Return to Dashboard</span>
