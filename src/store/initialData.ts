@@ -17,7 +17,7 @@ export const initialStudentProfile: StudentProfile = {
   id: 'student-user-01',
   name: 'Student',
   email: 'student@edunexus.edu',
-  avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User&backgroundColor=ffdfbf',
+  avatar: 'https://api.dicebear.com/7.x/micah/svg?seed=Felix&backgroundColor=ffdfbf',
   degree: 'B.Tech in Computer Science',
   year: 'Year 3 • Semester 5',
   university: 'University Institute of Technology',
@@ -952,7 +952,7 @@ export const initialCommunityPosts: CommunityPost[] = [
     id: 'post-01',
     author: {
       name: 'Priya Patel',
-      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User&backgroundColor=ffdfbf',
+      avatar: 'https://api.dicebear.com/7.x/micah/svg?seed=Milo&backgroundColor=c0aede',
       role: 'CS Sophomore • Peer Mentor'
     },
     title: 'How do I easily remember the difference between 2NF and 3NF without memorizing formal proofs?',
@@ -967,7 +967,7 @@ export const initialCommunityPosts: CommunityPost[] = [
         id: 'rep-01',
         author: {
           name: 'Senior Student',
-          avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User&backgroundColor=ffdfbf'
+          avatar: 'https://api.dicebear.com/7.x/micah/svg?seed=Aneka&backgroundColor=b6e3f4'
         },
         content: 'Remember the classic mantra by Bill Kent: "The key, the whole key, and nothing but the key, so help me Codd!"\n- 1NF = The key\n- 2NF = The WHOLE key (no depending on half a composite key)\n- 3NF = NOTHING BUT the key (no non-key depending on another non-key).',
         timestamp: '1 hour ago',
@@ -977,7 +977,7 @@ export const initialCommunityPosts: CommunityPost[] = [
         id: 'rep-02',
         author: {
           name: 'Devon Vance',
-          avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User&backgroundColor=ffdfbf'
+          avatar: 'https://api.dicebear.com/7.x/micah/svg?seed=Leo&backgroundColor=ffd5dc'
         },
         content: 'Also: 2NF is ONLY a concern if your Candidate Key has 2+ attributes! If candidate key is just 1 column, you jump straight to 3NF check.',
         timestamp: '45 mins ago',
@@ -989,7 +989,7 @@ export const initialCommunityPosts: CommunityPost[] = [
     id: 'post-02',
     author: {
       name: 'Rohan Mehta',
-      avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User&backgroundColor=ffdfbf',
+      avatar: 'https://api.dicebear.com/7.x/micah/svg?seed=Max&backgroundColor=d1d4f9',
       role: 'CS Junior'
     },
     title: 'Best approach for mastering Graph traversal (BFS vs DFS) for LeetCode medium questions?',
@@ -1004,7 +1004,7 @@ export const initialCommunityPosts: CommunityPost[] = [
         id: 'rep-03',
         author: {
           name: 'Ananya Rao',
-          avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=User&backgroundColor=ffdfbf'
+          avatar: 'https://api.dicebear.com/7.x/micah/svg?seed=Sophie&backgroundColor=ffdfbf'
         },
         content: 'Shortest path on unweighted graph? -> BFS always. Exhaustive search, path finding, or cycle detection on directed graph? -> DFS with recursion/visited array.',
         timestamp: '3 hours ago',

@@ -12,10 +12,10 @@ import {
 } from 'lucide-react';
 
 const AVATAR_OPTIONS = [
-  'https://api.dicebear.com/7.x/avataaars/svg?seed=User3&backgroundColor=ffdfbf',
-  'https://api.dicebear.com/7.x/avataaars/svg?seed=User3&backgroundColor=ffdfbf',
-  'https://api.dicebear.com/7.x/avataaars/svg?seed=User3&backgroundColor=ffdfbf',
-  'https://api.dicebear.com/7.x/avataaars/svg?seed=User3&backgroundColor=ffdfbf'
+  'https://api.dicebear.com/7.x/micah/svg?seed=Felix&backgroundColor=ffdfbf',
+  'https://api.dicebear.com/7.x/micah/svg?seed=Aneka&backgroundColor=c0aede',
+  'https://api.dicebear.com/7.x/micah/svg?seed=Charlie&backgroundColor=b6e3f4',
+  'https://api.dicebear.com/7.x/micah/svg?seed=Max&backgroundColor=ffd5dc'
 ];
 
 export const LoginPage: React.FC = () => {

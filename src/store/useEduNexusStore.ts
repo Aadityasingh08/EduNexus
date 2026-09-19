@@ -31,7 +31,7 @@ import {
   initialTutorSessions
 } from './initialData';
 
-const LOCAL_STORAGE_KEY = 'edunexus_state_v2';
+const LOCAL_STORAGE_KEY = 'edunexus_state_v3';
 
 export interface ToastMessage {
   id: string;
@@ -262,7 +262,7 @@ export const useEduNexusStore = create<EduNexusState>((set, get) => {
         primaryGoal: userData.primaryGoal,
         avatar:
           userData.avatar ||
-          'https://api.dicebear.com/7.x/avataaars/svg?seed=User2&backgroundColor=b6e3f4',
+          'https://api.dicebear.com/7.x/micah/svg?seed=Charlie&backgroundColor=b6e3f4',
         streakDays: 1,
         totalStudyHours: 2.5,
         quizzesTaken: 1,
