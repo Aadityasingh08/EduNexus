@@ -1,4 +1,17 @@
-import { AIResponsePayload } from './aiService.types';
+export interface AIResponsePayload {
+  content: string;
+  concept?: string;
+  breakdown?: {
+    concept: string;
+    example: string;
+    commonMistake: string;
+    quickCheck: string;
+  };
+  codeSnippet?: {
+    language: string;
+    code: string;
+  };
+}
 
 // Advanced Intelligent Local Simulation (No API Key Required)
 export const generateAIResponse = async (
