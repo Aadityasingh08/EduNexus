@@ -26,19 +26,27 @@ export const QuizCatalogPage: React.FC = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState<'Beginner' | 'Intermediate' | 'Advanced'>('Intermediate');
   const [questionCount, setQuestionCount] = useState(5);
   const [questionType, setQuestionType] = useState<'All' | 'MCQ' | 'True/False' | 'Short Answer'>('All');
+  const [isGenerating, setIsGenerating] = useState(false);
 
-  const handleGenerateQuiz = (e: React.FormEvent) => {
+  const handleGenerateQuiz = async (e: React.FormEvent) => {
     e.preventDefault();
-    const newQuiz = generateQuizByTopic({
-      subject: selectedSubject,
-      topic: selectedTopic,
-      difficulty: selectedDifficulty,
-      questionCount,
-      questionType
-    });
-    addGeneratedQuiz(newQuiz);
-    setIsGeneratorOpen(false);
-    navigate(`/quizzes/${newQuiz.id}`);
+    setIsGenerating(true);
+    try {
+      const newQuiz = await generateQuizByTopic({
+        subject: selectedSubject,
+        topic: selectedTopic,
+        difficulty: selectedDifficulty,
+        questionCount,
+        questionType
+      });
+      addGeneratedQuiz(newQuiz);
+      setIsGeneratorOpen(false);
+      setIsGenerating(false);
+      navigate(`/quizzes/${newQuiz.id}`);
+    } catch (err) {
+      console.error(err);
+      setIsGenerating(false);
+    }
   };
 
   return (
@@ -229,10 +237,11 @@ export const QuizCatalogPage: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-md shadow-amber-500/20 flex items-center gap-2"
+                  disabled={isGenerating}
+                  className="px-6 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 disabled:opacity-60 text-white font-bold text-xs shadow-md shadow-amber-500/20 flex items-center gap-2 transition-all"
                 >
                   <BookOpen className="w-4 h-4" />
-                  <span>Generate Assessment</span>
+                  <span>{isGenerating ? 'Generating...' : 'Generate Assessment'}</span>
                 </button>
               </div>
             </form>
