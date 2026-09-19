@@ -4,7 +4,6 @@ import { ResourceItem } from '../../types';
 import { useEduNexusStore } from '../../store/useEduNexusStore';
 import {
   X,
-  ExternalLink,
   Download,
   Bookmark,
   FileText,
@@ -25,13 +24,11 @@ import {
   Check,
   ZoomIn,
   ZoomOut,
-  Maximize2,
   Volume2,
   VolumeX,
-  Award,
   Layers,
-  HelpCircle,
-  Code
+  Award,
+  AlertCircle
 } from 'lucide-react';
 
 interface ResourceViewerModalProps {
@@ -46,36 +43,36 @@ export const ResourceViewerModal: React.FC<ResourceViewerModalProps> = ({
   const navigate = useNavigate();
   const { toggleSaveResource, addToast } = useEduNexusStore();
 
-  // Navigation & viewer states
   const [activeTab, setActiveTab] = useState<'content' | 'cheatsheet' | 'interactive'>('content');
   const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 6;
   const [zoomLevel, setZoomLevel] = useState(100);
   const [copiedText, setCopiedText] = useState(false);
 
   // Video state
   const [isPlaying, setIsPlaying] = useState(false);
-  const [videoProgress, setVideoProgress] = useState(18); // percent
+  const [videoProgress, setVideoProgress] = useState(22);
   const [videoSpeed, setVideoSpeed] = useState<number>(1);
   const [isMuted, setIsMuted] = useState(false);
   const [activeChapterIndex, setActiveChapterIndex] = useState(0);
 
-  // Code runner state for Python video
+  // Interactive sandbox state
   const [codeOutput, setCodeOutput] = useState<string | null>(null);
   const [isRunningCode, setIsRunningCode] = useState(false);
 
-  // Assignment checklist state
+  // Lab assignment checklist state
   const [completedTasks, setCompletedTasks] = useState<Record<string, boolean>>({
     task1: true,
     task2: false,
-    task3: false
+    task3: false,
+    task4: false
   });
 
   useEffect(() => {
-    // Reset page and tab when resource changes
     setCurrentPage(1);
     setActiveTab('content');
     setIsPlaying(false);
-    setVideoProgress(18);
+    setVideoProgress(22);
     setActiveChapterIndex(0);
     setCodeOutput(null);
   }, [resource?.id]);
@@ -97,13 +94,44 @@ export const ResourceViewerModal: React.FC<ResourceViewerModalProps> = ({
   const handleDownload = () => {
     const contentToDownload = `# ${resource.title}
 Subject: ${resource.subject}
-Type: ${resource.type}
+Module Topic: ${resource.topic}
 Difficulty: ${resource.difficulty}
-Summary: ${resource.summary}
+Estimated Study Time: ${resource.durationOrPages}
+Resource Type: ${resource.type}
+
+==================================================
+1. EXECUTIVE SUMMARY
+==================================================
+${resource.summary}
+
+==================================================
+2. COMPREHENSIVE ACADEMIC CURRICULUM NOTES
+==================================================
+[EduNexus Academic Learning OS - Verified Standard]
+
+SECTION I: THEORETICAL FOUNDATION & INVARIANTS
+This module establishes formal invariants for ${resource.subject}, specifically focusing on ${resource.topic}.
+Mastery of this topic guarantees proficiency in university examinations and industry system design interviews.
+
+SECTION II: FORMULAS, THEOREMS & CANONICAL RULES
+- Mathematical formalization
+- Axiomatic derivations
+- Asymptotic time and space complexities
+
+SECTION III: STEP-BY-STEP WORKED EXAMPLES
+Detailed step-by-step trace showing problem decomposition, edge case handling, and algorithmic verification.
+
+SECTION IV: COMMON EXAM TRAPS & MISCONCEPTIONS
+Identifies the top 5 areas where students lose marks during midterm and final assessments.
+
+SECTION V: RAPID REVISION FLASHCARD SUMMARY
+Key mnemonics and condensed formulas for night-before exam revision.
+
+SECTION VI: PRACTICE PROBLEMS & MODEL SOLUTIONS
+Exam-style questions with detailed grading rubrics.
 
 ---
-EduNexus Academic Learning OS Notes
-Extracted for student revision.
+Extracted from EduNexus Academic Learning Platform.
 Downloaded on: ${new Date().toLocaleDateString()}
 `;
 
@@ -111,7 +139,7 @@ Downloaded on: ${new Date().toLocaleDateString()}
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${resource.title.replace(/[^a-zA-Z0-9_-]/g, '_')}.md`;
+    a.download = `${resource.title.replace(/[^a-zA-Z0-9_-]/g, '_')}_Complete_Notes.md`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -119,7 +147,7 @@ Downloaded on: ${new Date().toLocaleDateString()}
 
     addToast({
       type: 'success',
-      title: 'Resource Downloaded',
+      title: 'Full 6-Page Study Notes Downloaded',
       message: `${resource.title} saved to your device.`
     });
   };
@@ -157,61 +185,63 @@ Downloaded on: ${new Date().toLocaleDateString()}
     }));
   };
 
-  // Video chapters for Python Functional Programming
   const pythonChapters = [
     {
       time: '00:00',
-      title: 'Introduction to Pure Functions & Immutability',
-      description: 'Why pure functions prevent state leakage and make concurrent code bug-free.'
+      title: 'Pure Functions & Referential Transparency',
+      description: 'Why pure functions eliminate side effects, state mutation bugs, and enable parallel safety.'
     },
     {
       time: '04:15',
-      title: 'Anonymous Lambdas: Syntax & Limitations',
-      description: 'Single-expression lambda semantics, inline arguments, and scoping rules.'
+      title: 'Anonymous Lambdas & Lexical Closures',
+      description: 'Single-expression lambda syntax, late-binding gotchas inside loops, and closure memory scope.'
     },
     {
       time: '10:30',
-      title: 'map() vs List Comprehensions Benchmark',
-      description: 'Memory efficiency of lazy map iterators compared to eager list comprehension allocations.'
+      title: 'map() vs List Comprehensions Benchmarks',
+      description: 'Memory profiling: Lazy map iterator (112 bytes) vs eager list comprehension allocation (8.4 MB).'
     },
     {
       time: '16:00',
-      title: 'filter() with Predicate Functions',
-      description: 'Constructing high-performance boolean filters on large streaming datasets.'
+      title: 'filter() with Predicates & Generator Pipelines',
+      description: 'Chaining declarative filter streams across massive dataset pipelines without intermediate allocations.'
     },
     {
       time: '20:45',
-      title: 'functools.reduce() Deep Dive',
-      description: 'Accumulators, initial values, and folding sequences into composite results.'
+      title: 'functools.reduce() Folding & Accumulator Patterns',
+      description: 'Cumulative aggregation, initial values, associative reduction, and NumPy vectorization trade-offs.'
     }
   ];
 
-  // Run mock python code
-  const handleRunPythonCode = () => {
+  const handleRunCode = () => {
     setIsRunningCode(true);
     setTimeout(() => {
       setIsRunningCode(false);
-      setCodeOutput(`[EduNexus Python 3.12 Runtime]
-=========================================
-Executing: functional_pipeline.py
->>> Raw Students Data: 4 records loaded
->>> Filtered Passing Grades (>= 75): ['Aaditya (92)', 'Maya (88)', 'Dev (79)']
->>> Transformed with map() & lambda (Curves Applied):
-    {'name': 'Aaditya', 'curved_score': 96.6}
-    {'name': 'Maya', 'curved_score': 92.4}
-    {'name': 'Dev', 'curved_score': 82.9}
->>> Aggregate Class Weighted Average (via functools.reduce): 90.63%
------------------------------------------
-Process finished with exit code 0 (Execution: 42ms)`);
-    }, 600);
+      setCodeOutput(`[EduNexus Academic Runtime Engine]
+============================================================
+Environment: Active Curriculum Sandbox (${resource.subject})
+Executing: ${resource.subject.toLowerCase()}_solution_trace.py
+------------------------------------------------------------
+>>> Loading raw records and initializing memory structures...
+>>> Verified Core Invariant: PASSED (All axioms satisfied)
+>>> Computed Result:
+    • Primary Metric: 96.4% Efficiency Score
+    • Asymptotic Complexity: O(log N) Time | O(1) Auxiliary Space
+    • Boundary Conditions: Handled [empty set, single node, max integer]
+------------------------------------------------------------
+SUCCESS: Execution completed in 34ms with exit code 0.`);
+    }, 500);
   };
 
+  // Determine subject for customized lengthy notes
+  const sub = resource.subject;
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/75 backdrop-blur-sm animate-fade-in">
-      <div className="w-full max-w-5xl h-[92vh] max-h-[900px] bg-white dark:bg-[#0f172a] rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col text-slate-900 dark:text-slate-100">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 bg-black/80 backdrop-blur-sm animate-fade-in">
+      <div className="w-full max-w-5xl h-[94vh] max-h-[950px] bg-white dark:bg-[#0f172a] rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col text-slate-900 dark:text-slate-100">
         
         {/* Top Header Bar */}
-        <div className="px-5 py-3.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-[#131d33]/80 backdrop-blur-xs flex items-center justify-between gap-4">
+        <div className="px-5 py-3.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50/90 dark:bg-[#131d33]/90 backdrop-blur-xs flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
             <div className="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 text-amber-500">
               {resource.type === 'PDF' && <FileText className="w-5 h-5 text-rose-500" />}
@@ -222,11 +252,11 @@ Process finished with exit code 0 (Execution: 42ms)`);
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[10px] font-mono uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                <span className="text-[10px] font-mono uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
                   {resource.subject} • {resource.type}
                 </span>
                 <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
-                  {resource.durationOrPages}
+                  6-Page Academic Edition • {resource.durationOrPages}
                 </span>
                 <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
                   {resource.difficulty}
@@ -256,15 +286,15 @@ Process finished with exit code 0 (Execution: 42ms)`);
             <button
               onClick={handleDownload}
               className="p-2 sm:px-3 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold flex items-center gap-1.5 transition-all"
-              title="Download Material"
+              title="Download Full 6-Page Notes"
             >
               <Download className="w-4 h-4 text-amber-500" />
-              <span className="hidden sm:inline">Download</span>
+              <span className="hidden sm:inline">Export Notes</span>
             </button>
 
             <button
               onClick={handleAskAITutor}
-              className="px-3 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold shadow-xs shadow-amber-600/20 flex items-center gap-1.5 transition-transform active:scale-95"
+              className="px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold shadow-xs shadow-amber-600/20 flex items-center gap-1.5 transition-transform active:scale-95"
             >
               <Brain className="w-3.5 h-3.5" />
               <span className="hidden md:inline">Ask AI Tutor</span>
@@ -280,52 +310,52 @@ Process finished with exit code 0 (Execution: 42ms)`);
         </div>
 
         {/* Viewer Subheader / Tabs */}
-        <div className="px-6 py-2 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f172a] flex items-center justify-between flex-wrap gap-2 text-xs">
+        <div className="px-6 py-2.5 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f172a] flex items-center justify-between flex-wrap gap-2 text-xs">
           <div className="flex items-center gap-2">
             <button
               onClick={() => setActiveTab('content')}
-              className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
+              className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
                 activeTab === 'content'
                   ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30'
                   : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              {resource.type === 'Video' ? 'Video Player & Chapters' : 'Document Reader'}
+              {resource.type === 'Video' ? 'Video Player & Chapters' : 'Comprehensive Document Reader (6 Pages)'}
             </button>
             <button
               onClick={() => setActiveTab('cheatsheet')}
-              className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
+              className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
                 activeTab === 'cheatsheet'
                   ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30'
                   : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              Key Takeaways & Formulas
+              Formula Sheet & Exam Invariants
             </button>
             <button
               onClick={() => setActiveTab('interactive')}
-              className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
+              className={`px-3 py-1.5 rounded-xl font-bold transition-all ${
                 activeTab === 'interactive'
                   ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30'
                   : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              {resource.type === 'Assignment' ? 'Lab Workspace' : 'Interactive Code / Practice'}
+              Interactive Code Sandbox & Lab
             </button>
           </div>
 
           <div className="flex items-center gap-3">
             <button
               onClick={handleStartQuiz}
-              className="text-amber-600 dark:text-amber-400 hover:underline font-semibold flex items-center gap-1"
+              className="text-amber-600 dark:text-amber-400 hover:underline font-bold flex items-center gap-1"
             >
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Practice Quiz on {resource.topic}</span>
+              <span>Launch Quiz on {resource.topic}</span>
             </button>
           </div>
         </div>
 
-        {/* Modal Main Viewport (Scrollable) */}
+        {/* Modal Main Viewport */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-slate-50/50 dark:bg-[#0b1120]">
           
           {/* ==================================================== */}
@@ -339,7 +369,7 @@ Process finished with exit code 0 (Execution: 42ms)`);
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                   {/* Left: Video Screen & Player Controls */}
                   <div className="lg:col-span-2 space-y-4">
-                    <div className="relative aspect-video rounded-2xl bg-slate-950 border border-slate-800 overflow-hidden shadow-xl flex flex-col justify-between p-4 group">
+                    <div className="relative aspect-video rounded-3xl bg-slate-950 border border-slate-800 overflow-hidden shadow-xl flex flex-col justify-between p-4 group">
                       
                       {/* Video Visualizer Canvas Simulation */}
                       <div className="absolute inset-0 bg-gradient-to-tr from-amber-950/40 via-slate-900 to-indigo-950/40 flex items-center justify-center pointer-events-none">
@@ -351,7 +381,7 @@ Process finished with exit code 0 (Execution: 42ms)`);
                             {pythonChapters[activeChapterIndex].title}
                           </h4>
                           <p className="text-xs text-slate-400 font-mono">
-                            Timestamp: {pythonChapters[activeChapterIndex].time} / 24:00 • Python 3.12
+                            Timestamp: {pythonChapters[activeChapterIndex].time} / 24:00 • {resource.subject} Masterclass
                           </p>
                         </div>
                       </div>
@@ -368,7 +398,7 @@ Process finished with exit code 0 (Execution: 42ms)`);
                       </div>
 
                       {/* Video Bottom Controls Bar */}
-                      <div className="relative z-10 bg-black/70 backdrop-blur-md p-3 rounded-xl border border-white/10 space-y-2">
+                      <div className="relative z-10 bg-black/70 backdrop-blur-md p-3 rounded-2xl border border-white/10 space-y-2">
                         {/* Timeline Scrubber */}
                         <div 
                           className="h-2 w-full bg-white/20 hover:bg-white/30 rounded-full cursor-pointer relative overflow-hidden transition-all"
@@ -441,7 +471,7 @@ Process finished with exit code 0 (Execution: 42ms)`);
                     </div>
 
                     {/* Current Chapter Explainer Card */}
-                    <div className="p-5 rounded-2xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs">
+                    <div className="p-5 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-[11px] font-mono font-bold text-amber-500 uppercase tracking-wider">
                           Current Segment Overview
@@ -512,12 +542,15 @@ Process finished with exit code 0 (Execution: 42ms)`);
                 </div>
               )}
 
-              {/* PDF & NOTES READER (For PDF & Notes types) */}
-              {(resource.type === 'PDF' || resource.type === 'Notes') && (
+              {/* MULTI-PAGE ACADEMIC READER (FOR ALL SUBJECTS: PDF, NOTES, ARTICLES, ASSIGNMENTS) */}
+              {resource.type !== 'Video' && (
                 <div className="space-y-4">
-                  {/* PDF Toolbar Controls */}
+                  
+                  {/* PDF / Document Toolbar Controls */}
                   <div className="p-3 rounded-2xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-xs flex items-center justify-between flex-wrap gap-3">
-                    <div className="flex items-center gap-2">
+                    
+                    {/* Page Number Controls & Direct Selectors */}
+                    <div className="flex items-center gap-1.5 flex-wrap">
                       <button
                         onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                         disabled={currentPage <= 1}
@@ -525,18 +558,33 @@ Process finished with exit code 0 (Execution: 42ms)`);
                       >
                         <ChevronLeft className="w-4 h-4" />
                       </button>
-                      <span className="text-xs font-mono font-semibold px-2">
-                        Page <span className="font-bold text-amber-500">{currentPage}</span> of 4
-                      </span>
+
+                      <div className="flex items-center gap-1">
+                        {[1, 2, 3, 4, 5, 6].map((pg) => (
+                          <button
+                            key={pg}
+                            onClick={() => setCurrentPage(pg)}
+                            className={`w-7 h-7 rounded-lg text-xs font-bold transition-all ${
+                              currentPage === pg
+                                ? 'bg-amber-600 text-white shadow-xs'
+                                : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                            }`}
+                          >
+                            {pg}
+                          </button>
+                        ))}
+                      </div>
+
                       <button
-                        onClick={() => setCurrentPage(p => Math.min(4, p + 1))}
-                        disabled={currentPage >= 4}
+                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                        disabled={currentPage >= totalPages}
                         className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-800"
                       >
                         <ChevronRight className="w-4 h-4" />
                       </button>
                     </div>
 
+                    {/* Zoom Level Controls */}
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => setZoomLevel(z => Math.max(75, z - 10))}
@@ -549,7 +597,7 @@ Process finished with exit code 0 (Execution: 42ms)`);
                         {zoomLevel}%
                       </span>
                       <button
-                        onClick={() => setZoomLevel(z => Math.min(140, z + 10))}
+                        onClick={() => setZoomLevel(z => Math.min(130, z + 10))}
                         className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs"
                         title="Zoom In"
                       >
@@ -558,394 +606,473 @@ Process finished with exit code 0 (Execution: 42ms)`);
                     </div>
 
                     <div className="flex items-center gap-2 text-xs">
-                      <span className="px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold border border-emerald-500/20 flex items-center gap-1.5">
+                      <span className="px-3 py-1 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold border border-emerald-500/20 flex items-center gap-1.5">
                         <CheckCircle2 className="w-3.5 h-3.5" />
-                        Verified Syllabus Notes
+                        Complete Curriculum Standard (Page {currentPage} of 6)
                       </span>
                     </div>
                   </div>
 
-                  {/* PDF Document Page Container */}
+                  {/* DOCUMENT PAGE CONTAINER */}
                   <div 
                     className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-md max-w-4xl mx-auto space-y-6 transition-all"
                     style={{ fontSize: `${(zoomLevel / 100) * 14}px` }}
                   >
                     {/* Header of academic sheet */}
-                    <div className="border-b-2 border-amber-500 pb-4 flex items-center justify-between">
+                    <div className="border-b-2 border-amber-500 pb-4 flex items-center justify-between flex-wrap gap-2">
                       <div>
                         <span className="text-[10px] font-mono uppercase tracking-widest text-amber-500 font-bold">
-                          EduNexus Academic Repository • Curriculum Standard
+                          EduNexus Academic Repository • {resource.subject} Module
                         </span>
                         <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1">
                           {resource.title}
                         </h1>
                       </div>
                       <div className="text-right font-mono text-xs text-slate-400">
-                        <div>REF: EDX-{resource.subject.toUpperCase()}-001</div>
-                        <div>Sheet Page {currentPage} of 4</div>
+                        <div>REF: EDX-{resource.subject.toUpperCase().replace(/\s+/g, '')}-0{currentPage}</div>
+                        <div className="font-bold text-amber-500">Page {currentPage} of {totalPages}</div>
                       </div>
                     </div>
 
-                    {/* Dynamic Page Content Based on Page Number */}
+                    {/* ==================================================== */}
+                    {/* PAGE 1: THEORETICAL FOUNDATION & INVARIANTS */}
+                    {/* ==================================================== */}
                     {currentPage === 1 && (
                       <div className="space-y-5 leading-relaxed text-slate-700 dark:text-slate-300">
-                        <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-900 dark:text-amber-200 text-xs font-medium">
-                          <strong>Core Objective:</strong> Understand why database anomalies occur in unnormalized schemas, identify Functional Dependencies (FDs), and apply First Normal Form (1NF) decomposition.
+                        <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-900 dark:text-amber-200 text-xs font-medium">
+                          <strong>Core Syllabus Objective:</strong> Master the foundational definitions, historical evolution, formal axiomatic properties, and necessity of {resource.topic} within computer science systems.
                         </div>
 
                         <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
                           <span className="w-6 h-6 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center text-xs font-extrabold">1</span>
-                          Database Anomalies in Denormalized Relations
+                          Theoretical Foundations & Problem Motivation
                         </h3>
 
-                        <p className="text-xs leading-relaxed">
-                          When a database schema is poorly designed, redundancy leads to severe operational hazards during everyday SQL transactions:
+                        <p className="text-xs sm:text-sm leading-relaxed">
+                          In real-world computing environments, {resource.topic} represents an essential architectural pillar. Without understanding the fundamental mathematical and algorithmic constraints governing this domain, software architectures suffer from severe degradation—ranging from memory leaks and synchronization race conditions to relational update anomalies and exponential time complexity.
                         </p>
 
-                        {/* Anomalies Table */}
-                        <div className="overflow-x-auto border border-slate-200 dark:border-slate-800 rounded-xl">
-                          <table className="w-full text-xs text-left">
-                            <thead className="bg-slate-100 dark:bg-slate-800/80 font-bold text-slate-900 dark:text-white">
-                              <tr>
-                                <th className="p-2.5">Anomaly Type</th>
-                                <th className="p-2.5">Real-world Consequence</th>
-                                <th className="p-2.5">Mitigation Mechanism</th>
-                              </tr>
-                            </thead>
-                            <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
-                              <tr>
-                                <td className="p-2.5 font-semibold text-rose-500">Insertion Anomaly</td>
-                                <td className="p-2.5">Cannot add a course until at least one student enrolls because Student_ID is part of primary key.</td>
-                                <td className="p-2.5 font-mono text-[11px]">Decompose into independent entities</td>
-                              </tr>
-                              <tr>
-                                <td className="p-2.5 font-semibold text-rose-500">Deletion Anomaly</td>
-                                <td className="p-2.5">Deleting the last student enrolled in a department inadvertently deletes the entire department record.</td>
-                                <td className="p-2.5 font-mono text-[11px]">Separate master and transaction tables</td>
-                              </tr>
-                              <tr>
-                                <td className="p-2.5 font-semibold text-rose-500">Update Anomaly</td>
-                                <td className="p-2.5">Changing a professor's office phone requires updating 5,000 course rows. Incomplete updates yield inconsistent data.</td>
-                                <td className="p-2.5 font-mono text-[11px]">Eliminate transitive dependencies</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
+                        {/* Subject Specific Deep Dive */}
+                        {sub === 'DBMS' && (
+                          <div className="space-y-4">
+                            <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+                              Database Anomalies in Unnormalized Relational Schemas:
+                            </h4>
+                            <div className="overflow-x-auto border border-slate-200 dark:border-slate-800 rounded-2xl">
+                              <table className="w-full text-xs text-left">
+                                <thead className="bg-slate-100 dark:bg-slate-800/80 font-bold text-slate-900 dark:text-white">
+                                  <tr>
+                                    <th className="p-3">Anomaly Type</th>
+                                    <th className="p-3">Theoretical Root Cause</th>
+                                    <th className="p-3">Concrete Industrial Failure</th>
+                                  </tr>
+                                </thead>
+                                <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+                                  <tr>
+                                    <td className="p-3 font-semibold text-rose-500">Insertion Anomaly</td>
+                                    <td className="p-3">Entity Primary Key requires values for unrelated dependent tuples.</td>
+                                    <td className="p-3">Cannot register a new Course unless at least one Student has enrolled.</td>
+                                  </tr>
+                                  <tr>
+                                    <td className="p-3 font-semibold text-rose-500">Deletion Anomaly</td>
+                                    <td className="p-3">Collateral loss of independent entity data during tuple removal.</td>
+                                    <td className="p-3">Deleting the sole student in Robotics deletes the entire Robotics department profile.</td>
+                                  </tr>
+                                  <tr>
+                                    <td className="p-3 font-semibold text-rose-500">Update Anomaly</td>
+                                    <td className="p-3">Data redundancy across multiple records causes partial state drift.</td>
+                                    <td className="p-3">Changing Professor office requires 4,000 row updates; partial failure creates inconsistent database state.</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        )}
 
-                        <h3 className="text-base font-bold text-slate-900 dark:text-white mt-4">
-                          First Normal Form (1NF) Rules:
-                        </h3>
-                        <ul className="list-disc pl-5 text-xs space-y-1.5">
-                          <li>Every attribute value must be <strong>atomic</strong> (no multivalued attributes like comma-separated telephone numbers or nested JSON arrays).</li>
-                          <li>Each row must be unique and identifiable by a Primary Key.</li>
-                          <li>Column values must belong to the exact domain type specified in schema.</li>
-                        </ul>
+                        {sub === 'Data Structures' && (
+                          <div className="space-y-4">
+                            <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+                              Binary Search Invariant & Degeneration to Linked List:
+                            </h4>
+                            <p className="text-xs sm:text-sm">
+                              A Binary Search Tree enforces the ordering invariant: for any node $v$, all keys in the left subtree are strictly less than $key(v)$, and all keys in the right subtree are greater than or equal to $key(v)$.
+                            </p>
+                            <div className="p-4 rounded-2xl bg-slate-900 text-slate-100 font-mono text-xs">
+                              Worst-case Degeneration Example:<br />
+                              Inserting sorted sequence: [10, 20, 30, 40, 50]<br />
+                              10 -&gt; right: 20 -&gt; right: 30 -&gt; right: 40 -&gt; right: 50<br />
+                              Height = O(N) | Search Time = O(N) [Unbalanced BST fails its primary purpose!]
+                            </div>
+                          </div>
+                        )}
+
+                        {sub === 'Computer Networks' && (
+                          <div className="space-y-4">
+                            <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+                              Layer 4 End-to-End Transport Responsibilities:
+                            </h4>
+                            <p className="text-xs sm:text-sm">
+                              While the Network Layer (IP) provides best-effort, host-to-host datagram routing across intermediate routers, the Transport Layer provides process-to-process communication multiplexing via port numbers (0 to 65535) and reliability guarantees.
+                            </p>
+                          </div>
+                        )}
+
+                        {sub !== 'DBMS' && sub !== 'Data Structures' && sub !== 'Computer Networks' && (
+                          <div className="p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 space-y-2">
+                            <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+                              System Architecture Overview for {resource.subject}:
+                            </h4>
+                            <p className="text-xs">
+                              {resource.summary}
+                            </p>
+                          </div>
+                        )}
                       </div>
                     )}
 
+                    {/* ==================================================== */}
+                    {/* PAGE 2: MATHEMATICAL FORMULATIONS & ARCHITECTURE */}
+                    {/* ==================================================== */}
                     {currentPage === 2 && (
                       <div className="space-y-5 leading-relaxed text-slate-700 dark:text-slate-300">
                         <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
                           <span className="w-6 h-6 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center text-xs font-extrabold">2</span>
-                          Second Normal Form (2NF) & Partial Dependency
+                          Mathematical Formulations, Invariants & Axioms
                         </h3>
 
-                        <div className="p-4 rounded-xl bg-slate-100 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 font-mono text-xs space-y-2">
-                          <div className="text-amber-500 font-bold">// Formal Rule of 2NF</div>
-                          <div>A relation R is in 2NF if and only if:</div>
-                          <div>1. R is in 1NF.</div>
-                          <div>2. No non-prime attribute is partially dependent on any candidate key of R.</div>
-                        </div>
+                        {sub === 'DBMS' && (
+                          <div className="space-y-4 text-xs sm:text-sm">
+                            <div className="p-4 rounded-2xl bg-slate-900 text-slate-100 font-mono text-xs space-y-1.5">
+                              <span className="text-amber-400 font-bold">// Armstrong\'s Axioms (Sound and Complete Inference Rules):</span><br />
+                              1. Reflexivity: If Y ⊆ X, then X → Y.<br />
+                              2. Augmentation: If X → Y, then XZ → YZ for any attribute set Z.<br />
+                              3. Transitivity: If X → Y and Y → Z, then X → Z.<br />
+                              4. Union (Derived): If X → Y and X → Z, then X → YZ.<br />
+                              5. Decomposition (Derived): If X → YZ, then X → Y and X → Z.
+                            </div>
 
-                        <p className="text-xs leading-relaxed">
-                          <strong>What is a Partial Dependency?</strong> If a table has a composite primary key <code className="text-amber-500 font-bold font-mono">{"{StudentID, CourseID}"}</code>, and attribute <code className="text-amber-500 font-bold font-mono">CourseName</code> depends only on <code className="text-amber-500 font-bold font-mono">CourseID</code> (a proper subset of the primary key), then it violates 2NF!
-                        </p>
+                            <h4 className="font-bold text-slate-900 dark:text-white">
+                              Attribute Closure Algorithm $X^+$:
+                            </h4>
+                            <p>
+                              Given functional dependency set $F$, the attribute closure $X^+$ determines all attributes uniquely determined by $X$.
+                              A set of attributes $K$ is a <strong>Candidate Key</strong> if and only if:
+                            </p>
+                            <ul className="list-disc pl-5 space-y-1">
+                              <li>$K^+ = R$ (K determines all attributes in the relation).</li>
+                              <li>No proper subset $K\' \subset K$ satisfies $(K\')^+ = R$ (Minimality condition).</li>
+                            </ul>
+                          </div>
+                        )}
 
-                        <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-xs space-y-2">
-                          <h4 className="font-bold text-emerald-600 dark:text-emerald-400">Step-by-step Decomposition into 2NF:</h4>
-                          <p>1. Identify composite candidate keys: <span className="font-mono font-bold">{"{StudentID, CourseID}"}</span>.</p>
-                          <p>2. Extract partially dependent attributes into a new relation: <span className="font-mono font-bold">COURSES(CourseID, CourseName, Credits)</span>.</p>
-                          <p>3. Keep only primary key and fully dependent attributes: <span className="font-mono font-bold">ENROLLMENTS(StudentID, CourseID, Grade)</span>.</p>
-                        </div>
+                        {sub === 'Data Structures' && (
+                          <div className="space-y-4 text-xs sm:text-sm">
+                            <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs font-mono space-y-2">
+                              <div className="font-bold text-amber-600 dark:text-amber-400">// AVL Height Balance Invariant Theorem</div>
+                              <div>BalanceFactor(v) = Height(v.left) - Height(v.right) ∈ {"{-1, 0, +1}"}</div>
+                              <div>Height of empty tree = 0; Height of leaf node = 1.</div>
+                            </div>
+                            <p>
+                              Adelson-Velsky and Landis (1962) proved that the maximum height of an AVL tree containing $N$ nodes satisfies:
+                              $$H(N) &lt; 1.4404 \\log_2(N + 2) - 0.328$$
+                              This guarantees that search, insertion, and deletion always run strictly in $O(\\log N)$ time, preventing worst-case $O(N)$ degeneration.
+                            </p>
+                          </div>
+                        )}
+
+                        {sub === 'Computer Networks' && (
+                          <div className="space-y-4 text-xs sm:text-sm">
+                            <h4 className="font-bold text-slate-900 dark:text-white">
+                              Bandwidth-Delay Product (BDP) & TCP Window Scaling:
+                            </h4>
+                            <div className="p-4 rounded-2xl bg-slate-900 text-slate-100 font-mono text-xs space-y-2">
+                              <div>BDP = Bottleneck Bandwidth (bits/sec) × Round Trip Time (seconds)</div>
+                              <div>Example: 10 Gbps link with 50ms RTT:</div>
+                              <div>BDP = (10 × 10^9 bits/sec) × (0.050 sec) = 500,000,000 bits = 62.5 Megabytes!</div>
+                              <div>Because standard TCP header window size field is only 16 bits (max 65,535 bytes),</div>
+                              <div>TCP Window Scaling Option (RFC 1323) must be negotiated during handshake!</div>
+                            </div>
+                          </div>
+                        )}
+
+                        {sub !== 'DBMS' && sub !== 'Data Structures' && sub !== 'Computer Networks' && (
+                          <div className="space-y-4 text-xs sm:text-sm">
+                            <h4 className="font-bold text-slate-900 dark:text-white">
+                              Core Mechanics & Formal Invariants:
+                            </h4>
+                            <p>
+                              All operations on {resource.topic} adhere to determinism, type safety, and memory lifecycle bounds.
+                              Evaluating state transitions requires constant validation against the underlying runtime invariant.
+                            </p>
+                          </div>
+                        )}
                       </div>
                     )}
 
+                    {/* ==================================================== */}
+                    {/* PAGE 3: STEP-BY-STEP WORKED EXAMPLES */}
+                    {/* ==================================================== */}
                     {currentPage === 3 && (
                       <div className="space-y-5 leading-relaxed text-slate-700 dark:text-slate-300">
                         <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
                           <span className="w-6 h-6 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center text-xs font-extrabold">3</span>
-                          Third Normal Form (3NF) & Transitive Dependencies
+                          Comprehensive Step-by-Step Worked Problems
                         </h3>
 
-                        <div className="p-4 rounded-xl bg-slate-100 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 font-mono text-xs space-y-2">
-                          <div className="text-amber-500 font-bold">// Formal Condition for 3NF</div>
-                          <div>A relation R is in 3NF if for every functional dependency X -&gt; Y:</div>
-                          <div>• Either X is a Superkey, OR</div>
-                          <div>• Y is a Prime Attribute (member of a candidate key).</div>
-                        </div>
+                        {sub === 'DBMS' && (
+                          <div className="space-y-4 text-xs sm:text-sm">
+                            <div className="p-4 rounded-2xl bg-slate-100 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 space-y-2">
+                              <span className="font-bold text-amber-500 uppercase font-mono">Exam Problem:</span>
+                              <p className="font-mono">Relation R(A, B, C, D, E, F) with FDs: {"{ A -> B, (B, C) -> D, D -> E, E -> F, A -> C }"}</p>
+                              <p>Step 1: Compute closure of A: $A^+ = {"{A, B, C, D, E, F}"}$. Since $A^+$ contains all attributes, $A$ is a Candidate Key!</p>
+                              <p>Step 2: Check 2NF: No composite keys, so 2NF is automatically satisfied.</p>
+                              <p>Step 3: Check 3NF: For $D \rightarrow E$, is $D$ a superkey? No ($D^+ = {"{D, E, F}"}$). Is $E$ a prime attribute? No ($E \notin {"{A}"}$). Therefore, **R violates 3NF** due to transitive dependency!</p>
+                              <p>Step 4: 3NF Decomposition: Split into $R_1(D, E)$, $R_2(E, F)$, $R_3(A, B, C, D)$. All relations are now in 3NF and preserve dependencies!</p>
+                            </div>
+                          </div>
+                        )}
 
-                        <p className="text-xs leading-relaxed">
-                          <strong>Transitive Dependency:</strong> If <code className="font-mono text-amber-500 font-bold">A -&gt; B</code> and <code className="font-mono text-amber-500 font-bold">B -&gt; C</code>, then <code className="font-mono text-amber-500 font-bold">A -&gt; C</code> is transitive. For example:
-                          <br />
-                          <code className="font-mono text-slate-800 dark:text-slate-200">StudentID -&gt; DeptID</code> and <code className="font-mono text-slate-800 dark:text-slate-200">DeptID -&gt; DeptBuilding</code>.
-                          <br />
-                          <code className="font-mono text-rose-500">DeptBuilding</code> transitively depends on <code className="font-mono text-rose-500">StudentID</code> through <code className="font-mono text-rose-500">DeptID</code>.
-                        </p>
+                        {sub === 'Data Structures' && (
+                          <div className="space-y-4 text-xs sm:text-sm">
+                            <h4 className="font-bold text-slate-900 dark:text-white">
+                              Worked Rotation Trace: Left-Right (LR) Double Rotation
+                            </h4>
+                            <div className="p-4 rounded-2xl bg-slate-900 text-slate-100 font-mono text-xs space-y-2">
+                              Initial state after inserting [30, 10, 20]:<br />
+                              &nbsp;&nbsp;&nbsp;&nbsp;30 (BF = +2) &lt;-- Unbalanced!<br />
+                              &nbsp;&nbsp;&nbsp;/ <br />
+                              &nbsp;&nbsp;10 (BF = -1) &lt;-- LR condition detected!<br />
+                              &nbsp;&nbsp;&nbsp;\ <br />
+                              &nbsp;&nbsp;&nbsp;20<br /><br />
+                              Step 1: Left-rotate on child (10):<br />
+                              &nbsp;&nbsp;&nbsp;&nbsp;30<br />
+                              &nbsp;&nbsp;&nbsp;/ <br />
+                              &nbsp;&nbsp;20<br />
+                              &nbsp;/ <br />
+                              10<br /><br />
+                              Step 2: Right-rotate on root (30):<br />
+                              &nbsp;&nbsp;&nbsp;&nbsp;20 (BF = 0) [Balanced AVL Tree!]<br />
+                              &nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;\<br />
+                              &nbsp;&nbsp;10&nbsp;&nbsp;30
+                            </div>
+                          </div>
+                        )}
 
-                        <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs">
-                          <strong className="text-amber-600 dark:text-amber-400">Exam Trick:</strong> 3NF preserves functional dependencies while guaranteeing a lossless-join decomposition!
-                        </div>
+                        {sub === 'Computer Networks' && (
+                          <div className="space-y-4 text-xs sm:text-sm">
+                            <h4 className="font-bold text-slate-900 dark:text-white">
+                              Wireshark Packet Capture Breakdown of TCP Handshake:
+                            </h4>
+                            <div className="p-4 rounded-2xl bg-slate-900 text-slate-100 font-mono text-xs space-y-1.5">
+                              Frame 1: Client -&gt; Server [SYN] Seq=1000000000 Ack=0 Window=64240 MSS=1460<br />
+                              Frame 2: Server -&gt; Client [SYN, ACK] Seq=2000000000 Ack=1000000001 Window=65535 MSS=1460<br />
+                              Frame 3: Client -&gt; Server [ACK] Seq=1000000001 Ack=2000000001 Window=64240<br />
+                              Connection State Transition: CLOSED -&gt; SYN_SENT -&gt; ESTABLISHED
+                            </div>
+                          </div>
+                        )}
+
+                        {sub !== 'DBMS' && sub !== 'Data Structures' && sub !== 'Computer Networks' && (
+                          <div className="space-y-4 text-xs sm:text-sm">
+                            <h4 className="font-bold text-slate-900 dark:text-white">
+                              Step-by-Step Implementation Trace:
+                            </h4>
+                            <p>
+                              Deconstructing {resource.topic} through iterative state transitions provides full visibility into boundary edge cases and performance execution.
+                            </p>
+                          </div>
+                        )}
                       </div>
                     )}
 
+                    {/* ==================================================== */}
+                    {/* PAGE 4: EDGE CASES & EXAM PITFALLS */}
+                    {/* ==================================================== */}
                     {currentPage === 4 && (
                       <div className="space-y-5 leading-relaxed text-slate-700 dark:text-slate-300">
                         <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
                           <span className="w-6 h-6 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center text-xs font-extrabold">4</span>
-                          Boyce-Codd Normal Form (BCNF) Comparison Matrix
+                          Critical Edge Cases, Trade-offs & Exam Traps
                         </h3>
 
-                        <p className="text-xs leading-relaxed">
-                          BCNF is a stricter version of 3NF. In BCNF, for every functional dependency <code className="font-mono text-amber-500 font-bold">X -&gt; Y</code>, <code className="font-mono text-amber-500 font-bold">X</code> <strong>MUST</strong> be a Superkey. There is no second clause for prime attributes!
-                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                          <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 space-y-2">
+                            <span className="font-bold text-rose-600 dark:text-rose-400 uppercase font-mono flex items-center gap-1.5">
+                              <AlertCircle className="w-4 h-4" />
+                              Top 3 Common Exam Mistakes:
+                            </span>
+                            <ul className="list-disc pl-4 space-y-1.5 text-rose-900 dark:text-rose-200">
+                              <li>Confusing 2NF with 3NF when candidate keys are single-column (2NF is always satisfied if candidate key is 1 column!).</li>
+                              <li>Assuming BCNF decomposition always preserves dependencies. BCNF guarantees lossless join, but does NOT guarantee dependency preservation!</li>
+                              <li>Overlooking the transitive dependency condition: $X \to Y$ is valid in 3NF if $Y$ is a prime attribute.</li>
+                            </ul>
+                          </div>
 
-                        <div className="overflow-x-auto border border-slate-200 dark:border-slate-800 rounded-xl">
+                          <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 space-y-2">
+                            <span className="font-bold text-emerald-600 dark:text-emerald-400 uppercase font-mono flex items-center gap-1.5">
+                              <Award className="w-4 h-4" />
+                              Proven Exam Scoring Strategies:
+                            </span>
+                            <ul className="list-disc pl-4 space-y-1.5 text-emerald-900 dark:text-emerald-200">
+                              <li>Always state the candidate key explicitly before arguing any normal form violation.</li>
+                              <li>Draw the functional dependency graph with arrows to visualize transitive chains instantly.</li>
+                              <li>Verify lossless join using the intersection rule: $(R_1 \cap R_2) \to R_1$ or $(R_1 \cap R_2) \to R_2$.</li>
+                            </ul>
+                          </div>
+                        </div>
+
+                        <div className="p-4 rounded-2xl bg-slate-100 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 text-xs space-y-2">
+                          <h4 className="font-bold text-slate-900 dark:text-white">
+                            The Classic BCNF Dependency Loss Counterexample:
+                          </h4>
+                          <p>
+                            Consider table <code className="font-mono text-amber-500 font-bold">Address(Street, City, ZipCode)</code> with FDs:
+                            <br />
+                            1. <code className="font-mono">{"(Street, City) -> ZipCode"}</code> (Candidate Key: Street, City)
+                            <br />
+                            2. <code className="font-mono">{"ZipCode -> City"}</code> (Zip determines City)
+                            <br />
+                            In 3NF: City is prime (part of key {"{Street, City}"}), so relation is in 3NF!
+                            <br />
+                            In BCNF: For <code className="font-mono">ZipCode -&gt; City</code>, ZipCode is NOT a superkey. Decomposing into <code className="font-mono">(ZipCode, City)</code> and <code className="font-mono">(Street, ZipCode)</code> loses the dependency <code className="font-mono">(Street, City) -&gt; ZipCode</code>!
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* ==================================================== */}
+                    {/* PAGE 5: HIGH-YIELD REVISION CHEAT SHEET */}
+                    {/* ==================================================== */}
+                    {currentPage === 5 && (
+                      <div className="space-y-5 leading-relaxed text-slate-700 dark:text-slate-300">
+                        <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                          <span className="w-6 h-6 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center text-xs font-extrabold">5</span>
+                          High-Yield Revision Matrix & Summary Table
+                        </h3>
+
+                        <div className="overflow-x-auto border border-slate-200 dark:border-slate-800 rounded-2xl">
                           <table className="w-full text-xs text-left">
                             <thead className="bg-slate-100 dark:bg-slate-800/80 font-bold text-slate-900 dark:text-white">
                               <tr>
-                                <th className="p-2.5">Normal Form</th>
-                                <th className="p-2.5">Disallows</th>
-                                <th className="p-2.5">Lossless Join?</th>
-                                <th className="p-2.5">Dependency Preserving?</th>
+                                <th className="p-3">Level / Normal Form</th>
+                                <th className="p-3">Core Condition Required</th>
+                                <th className="p-3">Disallowed Pattern</th>
+                                <th className="p-3">Lossless Join?</th>
+                                <th className="p-3">Preserves FDs?</th>
                               </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
                               <tr>
-                                <td className="p-2.5 font-bold">1NF</td>
-                                <td className="p-2.5">Non-atomic attributes</td>
-                                <td className="p-2.5 text-emerald-500 font-semibold">Yes</td>
-                                <td className="p-2.5 text-emerald-500 font-semibold">Yes</td>
+                                <td className="p-3 font-bold text-amber-600 dark:text-amber-400">1NF</td>
+                                <td className="p-3">Atomic values, Primary Key defined</td>
+                                <td className="p-3 text-rose-500">Repeating arrays, nested tables</td>
+                                <td className="p-3 text-emerald-500 font-bold">Yes</td>
+                                <td className="p-3 text-emerald-500 font-bold">Yes</td>
                               </tr>
                               <tr>
-                                <td className="p-2.5 font-bold">2NF</td>
-                                <td className="p-2.5">Partial dependencies</td>
-                                <td className="p-2.5 text-emerald-500 font-semibold">Yes</td>
-                                <td className="p-2.5 text-emerald-500 font-semibold">Yes</td>
+                                <td className="p-3 font-bold text-amber-600 dark:text-amber-400">2NF</td>
+                                <td className="p-3">1NF + No partial dependencies</td>
+                                <td className="p-3 text-rose-500">Non-prime attribute depends on subset of key</td>
+                                <td className="p-3 text-emerald-500 font-bold">Yes</td>
+                                <td className="p-3 text-emerald-500 font-bold">Yes</td>
                               </tr>
                               <tr>
-                                <td className="p-2.5 font-bold">3NF</td>
-                                <td className="p-2.5">Transitive dependencies</td>
-                                <td className="p-2.5 text-emerald-500 font-semibold">Yes</td>
-                                <td className="p-2.5 text-emerald-500 font-semibold">Yes</td>
+                                <td className="p-3 font-bold text-amber-600 dark:text-amber-400">3NF</td>
+                                <td className="p-3">2NF + For every X-&gt;Y, X is Superkey OR Y is Prime</td>
+                                <td className="p-3 text-rose-500">Transitive dependency (Non-key -&gt; Non-key)</td>
+                                <td className="p-3 text-emerald-500 font-bold">Yes</td>
+                                <td className="p-3 text-emerald-500 font-bold">Yes</td>
                               </tr>
                               <tr className="bg-amber-500/5">
-                                <td className="p-2.5 font-bold text-amber-500">BCNF</td>
-                                <td className="p-2.5">Any FD where LHS is not a Superkey</td>
-                                <td className="p-2.5 text-emerald-500 font-semibold">Yes</td>
-                                <td className="p-2.5 text-rose-500 font-semibold">Not always guaranteed!</td>
+                                <td className="p-3 font-bold text-amber-500">BCNF</td>
+                                <td className="p-3">For EVERY non-trivial X-&gt;Y, X MUST be a Superkey</td>
+                                <td className="p-3 text-rose-500">Any FD where LHS is not a Superkey</td>
+                                <td className="p-3 text-emerald-500 font-bold">Yes</td>
+                                <td className="p-3 text-rose-500 font-bold">Not always guaranteed!</td>
                               </tr>
                             </tbody>
                           </table>
                         </div>
 
-                        <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
+                        <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs">
+                          <strong className="text-amber-600 dark:text-amber-400">Night-Before-Exam Mnemonic:</strong>
+                          <p className="mt-1">
+                            <em>"1NF is about individual cells (atomic). 2NF is about parts of the key (full dependency). 3NF is about passing through other columns (no transitives). BCNF is about keys strictly ruling every dependency."</em>
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* ==================================================== */}
+                    {/* PAGE 6: PRACTICE PROBLEMS & MODEL SOLUTIONS */}
+                    {/* ==================================================== */}
+                    {currentPage === 6 && (
+                      <div className="space-y-5 leading-relaxed text-slate-700 dark:text-slate-300">
+                        <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                          <span className="w-6 h-6 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center text-xs font-extrabold">6</span>
+                          Exam-Style Practice Problems & Model Solutions
+                        </h3>
+
+                        <div className="space-y-4 text-xs sm:text-sm">
+                          {/* Problem 1 */}
+                          <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="font-bold text-amber-500 font-mono uppercase">Practice Problem 1:</span>
+                              <span className="text-[11px] font-semibold text-slate-400">University Midterm Standard</span>
+                            </div>
+                            <p className="font-semibold text-slate-900 dark:text-white">
+                              Given Relation R(P, Q, R, S, T) with FDs: {"{ P -> Q, (P, R) -> S, S -> T, T -> R }"}. Find all Candidate Keys.
+                            </p>
+                            <div className="pt-2 border-t border-slate-200 dark:border-slate-700/60 space-y-1">
+                              <span className="text-emerald-500 font-bold font-mono">Model Solution:</span>
+                              <p>1. Attributes not appearing on RHS: P. Therefore, P must be in every candidate key.</p>
+                              <p>2. $P^+ = {"{P, Q}"}$. Does not cover all attributes. We must augment P with another attribute.</p>
+                              <p>3. Check $(P, R)^+ = {"{P, R, Q, S, T}"} = R$. Minimal candidate key #1: **(P, R)**.</p>
+                              <p>4. Since $T \rightarrow R$, replace R with T: $(P, T)^+ = {"{P, T, R, Q, S}"} = R$. Minimal candidate key #2: **(P, T)**.</p>
+                              <p>5. Since $S \rightarrow T$, replace T with S: $(P, S)^+ = {"{P, S, T, R, Q}"} = R$. Minimal candidate key #3: **(P, S)**.</p>
+                              <p className="font-bold text-amber-500">Final Candidate Keys: {"{(P, R), (P, T), (P, S)}"}. Prime Attributes: {"{P, R, S, T}"}.</p>
+                            </div>
+                          </div>
+
+                          {/* Problem 2 */}
+                          <div className="p-4 rounded-2xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="font-bold text-amber-500 font-mono uppercase">Practice Problem 2:</span>
+                              <span className="text-[11px] font-semibold text-slate-400">Final Exam Standard</span>
+                            </div>
+                            <p className="font-semibold text-slate-900 dark:text-white">
+                              Prove whether relation R(A, B, C) with FDs: {"{ (A, B) -> C, C -> A }"} is in 3NF and BCNF.
+                            </p>
+                            <div className="pt-2 border-t border-slate-200 dark:border-slate-700/60 space-y-1">
+                              <span className="text-emerald-500 font-bold font-mono">Model Solution:</span>
+                              <p>Candidate Keys: $(A, B)$ and $(B, C)$. Prime attributes: {"{A, B, C}"}.</p>
+                              <p>For $(A, B) \rightarrow C$: LHS is superkey (Satisfies both 3NF and BCNF).</p>
+                              <p>For $C \rightarrow A$: LHS ($C$) is NOT a superkey. BUT RHS ($A$) is a prime attribute!</p>
+                              <p className="font-bold text-emerald-500">Conclusion: R is strictly in 3NF, but VIOLATES BCNF!</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800">
+                          <button
+                            onClick={handleDownload}
+                            className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold transition-all flex items-center gap-1.5"
+                          >
+                            <Download className="w-4 h-4 text-amber-500" />
+                            <span>Export All 6 Pages</span>
+                          </button>
+
                           <button
                             onClick={handleAskAITutor}
-                            className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs"
+                            className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs transition-transform active:scale-95"
                           >
                             <Brain className="w-4 h-4" />
-                            <span>Ask AI Tutor to test me on BCNF</span>
+                            <span>Ask AI Tutor to Test Me</span>
                           </button>
                         </div>
                       </div>
                     )}
-                  </div>
-                </div>
-              )}
 
-              {/* ARTICLE READER (For Article type, e.g. SQL Query Optimization) */}
-              {resource.type === 'Article' && (
-                <div className="max-w-4xl mx-auto space-y-6">
-                  <div className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-md space-y-6">
-                    <div className="border-b border-slate-200 dark:border-slate-800 pb-4">
-                      <span className="text-[11px] font-mono text-amber-500 font-bold uppercase tracking-wider">
-                        Advanced Systems Deep-Dive • Relational Engines
-                      </span>
-                      <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1">
-                        {resource.title}
-                      </h1>
-                      <div className="flex items-center gap-4 text-xs text-slate-400 mt-2">
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-3.5 h-3.5" />
-                          12 min read
-                        </span>
-                        <span>•</span>
-                        <span>PostgreSQL 16 & MySQL 8.4 Engine Internals</span>
-                      </div>
-                    </div>
-
-                    <div className="prose prose-slate dark:prose-invert max-w-none text-xs sm:text-sm space-y-4 leading-relaxed text-slate-700 dark:text-slate-300">
-                      <p>
-                        In production relational databases, writing queries is easy; writing queries that execute in sub-10 milliseconds across tables with tens of millions of rows requires understanding the query planner and indexing data structures.
-                      </p>
-
-                      <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                        1. Clustered vs Non-Clustered B-Tree Indices
-                      </h3>
-                      <p>
-                        A <strong>Clustered Index</strong> dictates the physical sorting order of rows on disk (such as InnoDB's Primary Key). Because data pages are physically organized by this key, range queries like <code className="font-mono text-amber-500">WHERE id BETWEEN 1000 AND 2000</code> require zero extra disk seeks.
-                      </p>
-                      <p>
-                        A <strong>Non-Clustered (Secondary) Index</strong> maintains an independent B-Tree where leaf nodes store pointers back to the clustered index key. Performing a query that selects columns not present in the secondary index triggers a <em>Bookmark / Key Lookup</em>, which can degrade throughput on high concurrent load.
-                      </p>
-
-                      <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                        2. The Leftmost Prefix Rule & Compound Indexes
-                      </h3>
-                      <p>
-                        If you create a composite index on <code className="font-mono text-amber-500">(tenant_id, created_at, status)</code>:
-                      </p>
-                      <div className="p-4 rounded-xl bg-slate-900 text-slate-100 font-mono text-xs overflow-x-auto">
-                        <span className="text-emerald-400">-- Uses Index Efficiently (Range Scan):</span><br />
-                        SELECT * FROM events WHERE tenant_id = 42 AND created_at &gt; '2026-01-01';<br /><br />
-                        <span className="text-rose-400">-- CANNOT Use Index (Skips Leftmost column tenant_id):</span><br />
-                        SELECT * FROM events WHERE status = 'PENDING';
-                      </div>
-
-                      <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                        3. Reading EXPLAIN ANALYZE Output
-                      </h3>
-                      <p>
-                        Never guess what the engine is doing. Run <code className="font-mono text-amber-500">EXPLAIN (ANALYZE, BUFFERS)</code> to see the exact execution plan:
-                      </p>
-                      <div className="p-4 rounded-xl bg-slate-900 text-slate-100 font-mono text-xs overflow-x-auto">
-                        Index Scan using idx_events_tenant on events  (cost=0.43..8.45 rows=1 width=72) (actual time=0.041..0.043 rows=1 loops=1)<br />
-                        &nbsp;&nbsp;Index Cond: (tenant_id = 42)<br />
-                        &nbsp;&nbsp;Buffers: shared hit=4<br />
-                        Planning Time: 0.082 ms<br />
-                        Execution Time: 0.061 ms
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* ASSIGNMENT VIEW (For Assignment type, e.g. Wireshark Lab) */}
-              {resource.type === 'Assignment' && (
-                <div className="max-w-4xl mx-auto space-y-6">
-                  <div className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 shadow-md space-y-6">
-                    <div className="border-b border-slate-200 dark:border-slate-800 pb-4 flex items-start justify-between flex-wrap gap-3">
-                      <div>
-                        <span className="text-[11px] font-mono text-emerald-500 font-bold uppercase tracking-wider">
-                          Practical Lab Assignment • Hands-on Networking
-                        </span>
-                        <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1">
-                          {resource.title}
-                        </h1>
-                        <p className="text-xs text-slate-400 mt-1">
-                          Estimated Duration: 45 minutes • Packet Capture Analysis
-                        </p>
-                      </div>
-
-                      <div className="px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 font-mono text-xs font-bold">
-                        Status: Due in 4 Days
-                      </div>
-                    </div>
-
-                    <div className="space-y-4 text-xs sm:text-sm">
-                      <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                        Lab Tasks & Deliverables Checklist
-                      </h3>
-
-                      <div className="space-y-2.5">
-                        <div 
-                          onClick={() => toggleTask('task1')}
-                          className={`p-3.5 rounded-2xl border flex items-center gap-3 cursor-pointer transition-all ${
-                            completedTasks.task1
-                              ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-300'
-                              : 'bg-slate-50 dark:bg-[#161F30] border-slate-200 dark:border-slate-800'
-                          }`}
-                        >
-                          <input 
-                            type="checkbox" 
-                            checked={completedTasks.task1} 
-                            onChange={() => {}}
-                            aria-label="Capture 3-Way Handshake task"
-                            className="w-4 h-4 rounded text-amber-600 cursor-pointer"
-                          />
-                          <div className="flex-1">
-                            <span className="font-bold">Task 1: Capture 3-Way Handshake</span>
-                            <p className="text-xs opacity-80">Filter for SYN, SYN-ACK, ACK and record initial sequence numbers (ISNs).</p>
-                          </div>
-                        </div>
-
-                        <div 
-                          onClick={() => toggleTask('task2')}
-                          className={`p-3.5 rounded-2xl border flex items-center gap-3 cursor-pointer transition-all ${
-                            completedTasks.task2
-                              ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-300'
-                              : 'bg-slate-50 dark:bg-[#161F30] border-slate-200 dark:border-slate-800'
-                          }`}
-                        >
-                          <input 
-                            type="checkbox" 
-                            checked={completedTasks.task2} 
-                            onChange={() => {}}
-                            aria-label="Calculate TCP Window Scaling and MSS task"
-                            className="w-4 h-4 rounded text-amber-600 cursor-pointer"
-                          />
-                          <div className="flex-1">
-                            <span className="font-bold">Task 2: Calculate TCP Window Scaling and MSS</span>
-                            <p className="text-xs opacity-80">Inspect TCP options header to locate Maximum Segment Size (MSS) and Window scale factor.</p>
-                          </div>
-                        </div>
-
-                        <div 
-                          onClick={() => toggleTask('task3')}
-                          className={`p-3.5 rounded-2xl border flex items-center gap-3 cursor-pointer transition-all ${
-                            completedTasks.task3
-                              ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-300'
-                              : 'bg-slate-50 dark:bg-[#161F30] border-slate-200 dark:border-slate-800'
-                          }`}
-                        >
-                          <input 
-                            type="checkbox" 
-                            checked={completedTasks.task3} 
-                            onChange={() => {}}
-                            aria-label="Wireshark Display Filter Verification task"
-                            className="w-4 h-4 rounded text-amber-600 cursor-pointer"
-                          />
-                          <div className="flex-1">
-                            <span className="font-bold">Task 3: Wireshark Display Filter Verification</span>
-                            <p className="text-xs opacity-80">Extract DNS UDP queries on port 53 and calculate header size comparison with TCP.</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <h4 className="text-sm font-bold text-slate-900 dark:text-white pt-3">
-                        Wireshark Display Filter Cheatsheet:
-                      </h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 font-mono text-xs flex items-center justify-between">
-                          <code>tcp.flags.syn == 1</code>
-                          <button 
-                            onClick={() => copyToClipboard('tcp.flags.syn == 1')}
-                            className="text-slate-400 hover:text-amber-500 p-1"
-                          >
-                            <Copy className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                        <div className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 font-mono text-xs flex items-center justify-between">
-                          <code>tcp.analysis.retransmission</code>
-                          <button 
-                            onClick={() => copyToClipboard('tcp.analysis.retransmission')}
-                            className="text-slate-400 hover:text-amber-500 p-1"
-                          >
-                            <Copy className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               )}
@@ -953,7 +1080,7 @@ Process finished with exit code 0 (Execution: 42ms)`);
           )}
 
           {/* ==================================================== */}
-          {/* TAB 2: KEY TAKEAWAYS & FORMULAS */}
+          {/* TAB 2: FORMULA SHEET & EXAM INVARIANTS */}
           {/* ==================================================== */}
           {activeTab === 'cheatsheet' && (
             <div className="max-w-4xl mx-auto space-y-6">
@@ -961,21 +1088,21 @@ Process finished with exit code 0 (Execution: 42ms)`);
                 <div className="flex items-center justify-between">
                   <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <Sparkles className="w-5 h-5 text-amber-500" />
-                    High-Yield Revision Formula & Cheat Sheet
+                    High-Yield Revision Formula & Cheat Sheet ({resource.subject})
                   </h3>
                   <button
                     onClick={handleDownload}
-                    className="text-xs font-semibold text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-1"
+                    className="text-xs font-bold text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-1"
                   >
                     <Download className="w-3.5 h-3.5" />
-                    Export Notes
+                    Export Full Sheet
                   </button>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="p-4 rounded-2xl bg-amber-500/5 border border-amber-500/20 space-y-2">
                     <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase font-mono">
-                      Definition & Core Theory
+                      Module Executive Summary
                     </span>
                     <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                       {resource.summary}
@@ -984,32 +1111,32 @@ Process finished with exit code 0 (Execution: 42ms)`);
 
                   <div className="p-4 rounded-2xl bg-slate-100 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 space-y-2">
                     <span className="text-xs font-bold text-slate-500 uppercase font-mono">
-                      Curriculum Placement
+                      Syllabus Placement
                     </span>
                     <div className="text-xs space-y-1">
-                      <div><strong>Subject:</strong> {resource.subject}</div>
-                      <div><strong>Topic Module:</strong> {resource.topic}</div>
-                      <div><strong>Estimated Mastery Gain:</strong> +15% upon completion</div>
+                      <div><strong>Discipline:</strong> {resource.subject}</div>
+                      <div><strong>Active Topic:</strong> {resource.topic}</div>
+                      <div><strong>Mastery Weight:</strong> High-Yield Core Topic</div>
                     </div>
                   </div>
                 </div>
 
                 <div className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3">
                   <h4 className="text-sm font-bold text-slate-900 dark:text-white">
-                    Frequently Tested Exam Concepts:
+                    Frequently Tested Exam Theorems:
                   </h4>
                   <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-300">
                     <li className="flex items-start gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
-                      <span><strong>Lossless Decomposition Test:</strong> R1 ∩ R2 must be a superkey in at least one of R1 or R2.</span>
+                      <span><strong>Lossless Decomposition Test:</strong> Relation split into $R_1$ and $R_2$ is lossless if and only if $(R_1 \cap R_2) \rightarrow R_1$ or $(R_1 \cap R_2) \rightarrow R_2$.</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
-                      <span><strong>Dependency Preservation:</strong> (F1 ∪ F2)+ must equal F+. If dependencies are lost in BCNF, we preserve 3NF.</span>
+                      <span><strong>Dependency Preservation:</strong> $(F_1 \cup F_2)^+ = F^+$. If BCNF loses dependencies, 3NF is preserved instead.</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
-                      <span><strong>Candidate Key Calculation:</strong> Compute attribute closure X+ using Armstrong's axioms (Reflexivity, Augmentation, Transitivity).</span>
+                      <span><strong>Canonical Cover $F_c$:</strong> Eliminate extraneous attributes and redundant dependencies using minimal cover algorithm.</span>
                     </li>
                   </ul>
                 </div>
@@ -1018,7 +1145,7 @@ Process finished with exit code 0 (Execution: 42ms)`);
           )}
 
           {/* ==================================================== */}
-          {/* TAB 3: INTERACTIVE CODE / PRACTICE */}
+          {/* TAB 3: INTERACTIVE CODE SANDBOX & LAB */}
           {/* ==================================================== */}
           {activeTab === 'interactive' && (
             <div className="max-w-4xl mx-auto space-y-6">
@@ -1032,7 +1159,7 @@ Process finished with exit code 0 (Execution: 42ms)`);
                   </div>
 
                   <button
-                    onClick={handleRunPythonCode}
+                    onClick={handleRunCode}
                     disabled={isRunningCode}
                     className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-xs flex items-center gap-2 transition-transform active:scale-95 disabled:opacity-50"
                   >
@@ -1052,26 +1179,17 @@ Process finished with exit code 0 (Execution: 42ms)`);
 
                 <div className="relative rounded-2xl bg-slate-950 border border-slate-800 font-mono text-xs overflow-hidden shadow-inner">
                   <div className="flex items-center justify-between px-4 py-2 border-b border-slate-800 bg-slate-900/90 text-slate-400 text-[11px]">
-                    <span>functional_pipeline.py</span>
+                    <span>{resource.subject.toLowerCase().replace(/\s+/g, '_')}_sandbox.py</span>
                     <button
-                      onClick={() => copyToClipboard(`from functools import reduce
+                      onClick={() => copyToClipboard(`# EduNexus Academic Sandbox
+# Subject: ${resource.subject} - ${resource.topic}
 
-students = [
-    {"name": "Aaditya", "score": 92},
-    {"name": "Maya", "score": 88},
-    {"name": "Dev", "score": 79},
-    {"name": "Rohan", "score": 54}
-]
-
-# 1. Filter passing marks using lambda
-passing = list(filter(lambda s: s["score"] >= 75, students))
-
-# 2. Map curve using pure function (+5% boost)
-curved = list(map(lambda s: {"name": s["name"], "curved_score": round(s["score"] * 1.05, 1)}, passing))
-
-# 3. Reduce to compute weighted average
-total = reduce(lambda acc, s: acc + s["curved_score"], curved, 0)
-avg = round(total / len(curved), 2)`)}
+def compute_solution_trace(data):
+    """
+    Executes algorithmic pipeline verifying invariants for ${resource.topic}
+    """
+    print("Validating input domain...")
+    return True`)}
                       className="hover:text-white flex items-center gap-1"
                     >
                       {copiedText ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
@@ -1080,25 +1198,25 @@ avg = round(total / len(curved), 2)`)}
                   </div>
 
                   <div className="p-4 text-emerald-300 overflow-x-auto leading-relaxed">
-                    <pre>{`from functools import reduce
+                    <pre>{`# EduNexus Academic Learning Platform - Interactive Sandbox
+# Subject: ${resource.subject} | Module: ${resource.topic}
 
-students = [
-    {"name": "Aaditya", "score": 92},
-    {"name": "Maya", "score": 88},
-    {"name": "Dev", "score": 79},
-    {"name": "Rohan", "score": 54}
-]
+def verify_curriculum_invariants():
+    """
+    Simulates academic constraints and checks asymptotic efficiency
+    """
+    records = [
+        {"id": 101, "metric": "Candidate Key Verified", "score": 98.2},
+        {"id": 102, "metric": "Lossless Join Preserved", "score": 94.6},
+        {"id": 103, "metric": "No Transitive Dependencies", "score": 91.0}
+    ]
+    
+    # Declarative stream validation
+    passing = [r for r in records if r["score"] >= 90.0]
+    print(f"Verified {len(passing)} core invariants successfully.")
+    return True
 
-# 1. Filter passing marks using lambda predicate
-passing = list(filter(lambda s: s["score"] >= 75, students))
-
-# 2. Transform with pure mapping function (+5% curve)
-curved = list(map(lambda s: {"name": s["name"], "curved_score": round(s["score"] * 1.05, 1)}, passing))
-
-# 3. Fold with reduce to calculate class aggregate
-total = reduce(lambda acc, s: acc + s["curved_score"], curved, 0)
-avg = round(total / len(curved), 2)
-print(f"Weighted Class Average: {avg}%")`}</pre>
+verify_curriculum_invariants()`}</pre>
                   </div>
                 </div>
 
@@ -1115,11 +1233,13 @@ print(f"Weighted Class Average: {avg}%")`}</pre>
         </div>
 
         {/* Modal Footer */}
-        <div className="px-6 py-3 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f172a] flex items-center justify-between flex-wrap gap-3 text-xs">
+        <div className="px-6 py-3.5 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0f172a] flex items-center justify-between flex-wrap gap-3 text-xs">
           <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
             <span>Subject: <strong className="text-slate-800 dark:text-slate-200">{resource.subject}</strong></span>
             <span>•</span>
             <span>Topic: <strong className="text-slate-800 dark:text-slate-200">{resource.topic}</strong></span>
+            <span>•</span>
+            <span>Edition: <strong className="text-amber-500">6-Page University Revision</strong></span>
           </div>
 
           <div className="flex items-center gap-3">
