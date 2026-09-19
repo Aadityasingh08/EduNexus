@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useEduNexusStore } from '../../store/useEduNexusStore';
+import { ResourceItem } from '../../types';
+import { ResourceViewerModal } from './ResourceViewerModal';
 import {
   FolderArchive,
   Search,
@@ -20,6 +22,7 @@ export const ResourcesPage: React.FC = () => {
   const [selectedSubject, setSelectedSubject] = useState('All');
   const [selectedType, setSelectedType] = useState('All');
   const [onlySaved, setOnlySaved] = useState(false);
+  const [viewingResource, setViewingResource] = useState<ResourceItem | null>(null);
 
   const subjects = ['All', 'DBMS', 'Python', 'Data Structures', 'Computer Networks'];
   const types = ['All', 'PDF', 'Article', 'Video', 'Notes', 'Assignment'];
@@ -49,12 +52,8 @@ export const ResourcesPage: React.FC = () => {
     }
   };
 
-  const handleOpenResource = (title: string) => {
-    addToast({
-      type: 'info',
-      title: 'Opening Resource Viewer',
-      message: `Loading "${title}" in EduNexus reader...`
-    });
+  const handleOpenResource = (res: ResourceItem) => {
+    setViewingResource(res);
   };
 
   return (
@@ -160,7 +159,10 @@ export const ResourcesPage: React.FC = () => {
           >
             <div>
               <div className="flex items-start justify-between gap-3 mb-3">
-                <div className="flex items-center gap-2.5">
+                <div 
+                  className="flex items-center gap-2.5 cursor-pointer flex-1"
+                  onClick={() => handleOpenResource(res)}
+                >
                   <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-[#161F30] border border-slate-200 dark:border-slate-800 flex items-center justify-center shrink-0">
                     {getTypeIcon(res.type)}
                   </div>
@@ -168,7 +170,7 @@ export const ResourcesPage: React.FC = () => {
                     <span className="text-[10px] font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 font-mono">
                       {res.subject} • {res.type}
                     </span>
-                    <h3 className="text-sm font-bold text-slate-900 dark:text-white line-clamp-1">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white line-clamp-1 hover:text-amber-500 transition-colors">
                       {res.title}
                     </h3>
                   </div>
@@ -187,7 +189,10 @@ export const ResourcesPage: React.FC = () => {
                 </button>
               </div>
 
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4 line-clamp-2">
+              <p 
+                onClick={() => handleOpenResource(res)}
+                className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4 line-clamp-2 cursor-pointer"
+              >
                 {res.summary}
               </p>
 
@@ -202,8 +207,8 @@ export const ResourcesPage: React.FC = () => {
 
             <div className="flex items-center gap-2 pt-3 border-t border-slate-200 dark:border-slate-800">
               <button
-                onClick={() => handleOpenResource(res.title)}
-                className="flex-1 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5"
+                onClick={() => handleOpenResource(res)}
+                className="flex-1 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-1.5 active:scale-98"
               >
                 <span>Open Material</span>
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -212,6 +217,12 @@ export const ResourcesPage: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* Resource Viewer Modal */}
+      <ResourceViewerModal
+        resource={viewingResource}
+        onClose={() => setViewingResource(null)}
+      />
     </div>
   );
 };
