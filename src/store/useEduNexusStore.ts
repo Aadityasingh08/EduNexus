@@ -31,7 +31,7 @@ import {
   initialTutorSessions
 } from './initialData';
 
-const LOCAL_STORAGE_KEY = 'edunexus_state_v1';
+const LOCAL_STORAGE_KEY = 'edunexus_state_v2';
 
 export interface ToastMessage {
   id: string;
