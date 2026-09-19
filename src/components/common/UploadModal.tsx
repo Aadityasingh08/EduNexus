@@ -149,30 +149,6 @@ export const UploadModal: React.FC = () => {
                 )}
               </div>
 
-              {/* Quick Preset for instantaneous demo */}
-              <div className="bg-slate-50 dark:bg-[#161F30] p-4 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-xs">
-                    PDF
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold text-slate-900 dark:text-white">
-                      Sample: DBMS_Normalization_Lecture_Module_CS204.pdf
-                    </p>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                      Pre-bundled university notes covering 1NF, 2NF, 3NF & BCNF decomposition
-                    </p>
-                  </div>
-                </div>
-                <button
-                  onClick={() => {
-                    setSelectedFile(new File(['demo'], 'DBMS_Normalization_Lecture_Module_CS204.pdf'));
-                  }}
-                  className="text-xs px-3 py-1.5 rounded-lg bg-blue-600/10 border border-blue-500/20 text-blue-400 font-semibold hover:bg-blue-600 hover:text-white transition-colors"
-                >
-                  Use This File
-                </button>
-              </div>
 
               <div className="flex justify-end gap-3 pt-2">
                 <button

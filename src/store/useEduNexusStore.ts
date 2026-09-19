@@ -56,7 +56,6 @@ interface EduNexusState {
     avatar?: string;
   }) => void;
   loginUser: (email: string, password?: string, name?: string) => boolean;
-  loginDemoUser: (customName?: string) => void;
   logout: () => void;
   updateProfile: (updates: Partial<StudentProfile>) => void;
   toggleTheme: () => void;
@@ -143,9 +142,6 @@ interface EduNexusState {
   toasts: ToastMessage[];
   addToast: (toast: Omit<ToastMessage, 'id'>) => void;
   removeToast: (id: string) => void;
-
-  // State reset for demo testing
-  resetDemoData: () => void;
 }
 
 // Helper to calculate node status from mastery percentage
@@ -162,13 +158,10 @@ const loadInitialState = () => {
     const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
-      const isLegacyDemo = parsed.studentProfile?.name === 'Aarav Sharma';
-      const cleanProfile = isLegacyDemo
-        ? { ...initialStudentProfile }
-        : {
-            ...(parsed.studentProfile || initialStudentProfile),
-            theme: parsed.hasExplicitThemeChoice ? parsed.studentProfile?.theme : 'light'
-          };
+      const cleanProfile = {
+        ...(parsed.studentProfile || initialStudentProfile),
+        theme: parsed.hasExplicitThemeChoice ? parsed.studentProfile?.theme : 'light'
+      };
       
       // Update HTML class immediately on load
       if (cleanProfile.theme === 'dark') {
@@ -181,7 +174,7 @@ const loadInitialState = () => {
 
       return {
         ...parsed,
-        isAuthenticated: isLegacyDemo ? false : Boolean(parsed.isAuthenticated),
+        isAuthenticated: Boolean(parsed.isAuthenticated),
         studentProfile: cleanProfile,
         // Make sure modals & toasts start clean
         isFocusModeOpen: false,
@@ -309,25 +302,6 @@ export const useEduNexusStore = create<EduNexusState>((set, get) => {
         message: 'EduNexus is ready to guide your learning.'
       });
       return true;
-    },
-
-    loginDemoUser: (customName) => {
-      const studentName = customName?.trim() || 'Student Learner';
-      const updated: StudentProfile = {
-        ...get().studentProfile,
-        name: studentName,
-        theme: 'light'
-      };
-      // Immediately reflect on HTML document
-      document.documentElement.classList.remove('dark');
-      document.documentElement.classList.add('light');
-      set({ isAuthenticated: true, studentProfile: updated });
-      saveState({ isAuthenticated: true, studentProfile: updated });
-      get().addToast({
-        type: 'success',
-        title: `Welcome, ${studentName}!`,
-        message: 'EduNexus student session initialized.'
-      });
     },
 
     logout: () => {
@@ -893,32 +867,5 @@ export const useEduNexusStore = create<EduNexusState>((set, get) => {
     removeToast: (id) => {
       set(s => ({ toasts: s.toasts.filter(t => t.id !== id) }));
     },
-
-    resetDemoData: () => {
-      localStorage.removeItem(LOCAL_STORAGE_KEY);
-      set({
-        studentProfile: initialStudentProfile,
-        courses: initialCourses,
-        activeCourseId: 'course-dbms',
-        knowledgeNodes: initialKnowledgeNodes,
-        knowledgeEdges: initialKnowledgeEdges,
-        selectedNodeId: 'node-dbms-norm',
-        studySessions: initialStudySessions,
-        quizzes: initialQuizzes,
-        quizAttempts: [],
-        tutorSessions: initialTutorSessions,
-        activeTutorSessionId: 'session-norm',
-        recommendations: initialRecommendations,
-        careerPaths: initialCareerPaths,
-        resources: initialResources,
-        communityPosts: initialCommunityPosts,
-        notifications: initialNotifications
-      });
-      get().addToast({
-        type: 'info',
-        title: 'Demo Data Reset',
-        message: 'All courses, nodes, and schedules have been restored to initial state.'
-      });
-    }
   };
 });

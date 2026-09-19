@@ -12,17 +12,17 @@
     --nexus-text: #0F172A;
     --nexus-muted: #64748B;
     
-    /* Academic Theme Palettes */
-    --nexus-blue: #2563EB;
-    --nexus-blue-soft: rgba(37, 99, 235, 0.08);
+    /* Academic Theme Palettes (Brown / Coffee) */
+    --nexus-blue: #8B4513; /* SaddleBrown */
+    --nexus-blue-soft: rgba(139, 69, 19, 0.08);
     --nexus-emerald: #10B981;
     --nexus-emerald-soft: rgba(16, 185, 129, 0.08);
     --nexus-amber: #F59E0B;
     --nexus-amber-soft: rgba(245, 158, 11, 0.08);
-    --nexus-indigo: #6366F1;
-    --nexus-indigo-soft: rgba(99, 102, 241, 0.08);
-    --nexus-rose: #F43F5E;
-    --nexus-rose-soft: rgba(244, 63, 94, 0.08);
+    --nexus-indigo: #A0522D; /* Sienna */
+    --nexus-indigo-soft: rgba(160, 82, 45, 0.08);
+    --nexus-rose: #D2691E; /* Chocolate */
+    --nexus-rose-soft: rgba(210, 105, 30, 0.08);
   }
 
   .dark {
