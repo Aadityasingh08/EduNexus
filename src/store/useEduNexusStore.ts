@@ -30,8 +30,9 @@ import {
   initialNotifications,
   initialTutorSessions
 } from './initialData';
+import { updateMasteryFromQuiz, getMasteryStatus, getRecommendationReasoning } from '../services/masteryService';
 
-const LOCAL_STORAGE_KEY = 'edunexus_state_v3';
+const LOCAL_STORAGE_KEY = 'edunexus_state_v4';
 
 export interface ToastMessage {
   id: string;
@@ -142,6 +143,9 @@ interface EduNexusState {
   toasts: ToastMessage[];
   addToast: (toast: Omit<ToastMessage, 'id'>) => void;
   removeToast: (id: string) => void;
+
+  // Demo Reset (developer/demo use only)
+  resetToDemo: () => void;
 }
 
 // Helper to calculate node status from mastery percentage
@@ -557,76 +561,70 @@ export const useEduNexusStore = create<EduNexusState>((set, get) => {
       saveState({ adaptiveSuggestions: updatedSuggestions });
     },
 
-    // CRITICAL CLOSED-LOOP REACTION:
-    // When a quiz attempt finishes, dynamically update:
-    // 1. Knowledge map node color & mastery
-    // 2. Study plan revision task
-    // 3. Overall student statistics
-    // 4. Notifications
     recordQuizAttempt: (attempt) => {
       const currentAttempts = [attempt, ...get().quizAttempts];
       const student = get().studentProfile;
+      const currentNodes = get().knowledgeNodes;
+      const currentEdges = get().knowledgeEdges;
 
-      // Update student profile stats
+      // Use the real mastery calculation service
+      const { updatedNodes, overallMasteryDelta } = updateMasteryFromQuiz(
+        currentNodes,
+        attempt,
+        currentEdges.map((e) => ({ source: e.source, target: e.target }))
+      );
+
+      // Update student overall mastery based on average of all nodes
+      const avgNodeMastery = Math.round(
+        updatedNodes.reduce((sum, n) => sum + n.mastery, 0) / updatedNodes.length
+      );
       const updatedStudent: StudentProfile = {
         ...student,
         quizzesTaken: student.quizzesTaken + 1,
-        // Calculate new mastery based on quiz accuracy
-        overallMastery: Math.min(100, Math.round((student.overallMastery * 0.8) + (attempt.accuracyPercent * 0.2)))
+        overallMastery: avgNodeMastery
       };
 
-      // Recalculate Normalization / Topic node mastery in knowledge map
-      const updatedNodes = get().knowledgeNodes.map(node => {
-        if (node.label.toLowerCase().includes('normalization') || attempt.quizTitle.toLowerCase().includes('normalization')) {
-          const newMastery = Math.min(100, Math.max(30, Math.round(node.mastery + (attempt.accuracyPercent > 60 ? 16 : -5))));
-          return {
-            ...node,
-            mastery: newMastery,
-            status: getStatusFromMastery(newMastery)
-          };
-        }
-        if (attempt.strongTopics.some(t => node.label.toLowerCase().includes(t.toLowerCase()))) {
-          const newMastery = Math.min(98, node.mastery + 10);
-          return {
-            ...node,
-            mastery: newMastery,
-            status: getStatusFromMastery(newMastery)
-          };
-        }
-        return node;
-      });
+      // Generate dynamic adaptive revision session with today's real date
+      const today = new Date();
+      const todayStr = today.toISOString().split('T')[0];
+      const weakNodes = updatedNodes.filter((n) => n.status === 'weak' || n.status === 'needs-practice');
+      const reasoning = getRecommendationReasoning(weakNodes, attempt);
 
-      // Automatically schedule a targeted revision session in the study plan
       const revisionSession: StudySession = {
         id: `session-rev-${Date.now()}`,
-        title: `AI Revision: ${attempt.recommendedRevisionTopic || '2NF vs 3NF Transitive Dependencies'}`,
-        subject: 'DBMS',
-        courseId: 'course-dbms',
+        title: `AI Revision: ${attempt.recommendedRevisionTopic || 'Targeted Practice'}`,
+        subject: attempt.quizTitle.includes('Python') ? 'Python' : attempt.quizTitle.includes('Network') ? 'CN' : 'DBMS',
+        courseId: attempt.quizTitle.includes('Python') ? 'course-python' : 'course-dbms',
         timeSlot: '20:30 - 21:00',
         durationMinutes: 30,
-        date: '2026-09-19',
+        date: todayStr,
         type: 'revision',
         priority: 'high',
         completed: false,
         aiSuggested: true,
-        notes: `EduNexus diagnostic identified: ${attempt.aiMisconceptionAnalysis}`
+        notes: `EduNexus Diagnostic:\n• ${reasoning.join('\n• ')}`
       };
 
       const updatedSessions = [revisionSession, ...get().studySessions];
 
-      // Mark quiz completed in quizzes catalog
-      const updatedQuizzes = get().quizzes.map(q => {
+      // Mark quiz completed in catalog
+      const updatedQuizzes = get().quizzes.map((q) => {
         if (q.id === attempt.quizId) {
           return { ...q, completed: true, lastScore: attempt.score };
         }
         return q;
       });
 
-      // Add high-priority notification
+      // Generate real notification
+      const masteryChange = Math.abs(overallMasteryDelta);
       const newNotification: NotificationItem = {
         id: `notif-${Date.now()}`,
-        title: `Quiz Diagnosed: ${attempt.accuracyPercent}% Score`,
-        description: attempt.aiMisconceptionAnalysis,
+        title: attempt.accuracyPercent >= 70
+          ? `Quiz Complete: ${attempt.accuracyPercent}% — Knowledge Map Updated ✅`
+          : `Diagnostic Alert: ${attempt.accuracyPercent}% — Weak Areas Detected ⚠️`,
+        description: attempt.accuracyPercent >= 70
+          ? `Strong performance on ${attempt.quizTitle}. ${attempt.strongTopics.slice(0, 2).join(', ')} concepts reinforced.`
+          : `${attempt.aiMisconceptionAnalysis.slice(0, 120)}... A 30-min revision session has been added to your study plan.`,
         timeAgo: 'Just now',
         type: 'quiz',
         read: false,
@@ -652,9 +650,9 @@ export const useEduNexusStore = create<EduNexusState>((set, get) => {
       });
 
       get().addToast({
-        type: 'success',
+        type: attempt.accuracyPercent >= 70 ? 'success' : 'warning',
         title: 'Quiz Diagnostics Complete',
-        message: `Score: ${attempt.score}/${attempt.totalQuestions}. Knowledge Map & Study Plan updated!`
+        message: `Score: ${attempt.score}/${attempt.totalQuestions} (${attempt.accuracyPercent}%). Knowledge Map & Study Plan updated!`
       });
     },
 
@@ -867,5 +865,59 @@ export const useEduNexusStore = create<EduNexusState>((set, get) => {
     removeToast: (id) => {
       set(s => ({ toasts: s.toasts.filter(t => t.id !== id) }));
     },
+
+    // ─── Demo Reset ────────────────────────────────────────────────────────────
+    // Restores all state to initial demo data. For judge/demo use only.
+    resetToDemo: () => {
+      const freshState = {
+        isAuthenticated: get().isAuthenticated,
+        studentProfile: {
+          ...initialStudentProfile,
+          name: get().studentProfile.name || 'Student',
+          email: get().studentProfile.email || 'student@edunexus.edu',
+          theme: get().studentProfile.theme
+        },
+        courses: initialCourses,
+        activeCourseId: 'course-cn',
+        knowledgeNodes: initialKnowledgeNodes,
+        knowledgeEdges: initialKnowledgeEdges,
+        selectedNodeId: 'node-dbms-norm',
+        studySessions: initialStudySessions,
+        adaptiveSuggestions: [
+          {
+            id: 'sugg-01',
+            title: 'Heavier workload tomorrow detected',
+            reason: 'You have 2 lectures and a project deadline tomorrow. EduNexus suggests moving SQL Practice to today.',
+            actionType: 'reschedule' as const,
+            status: 'pending' as const
+          }
+        ],
+        quizzes: initialQuizzes,
+        quizAttempts: [],
+        tutorSessions: initialTutorSessions,
+        activeTutorSessionId: 'session-norm',
+        recommendations: initialRecommendations,
+        careerPaths: initialCareerPaths,
+        resources: initialResources,
+        communityPosts: initialCommunityPosts,
+        notifications: initialNotifications,
+        isFocusModeOpen: false,
+        isUploadModalOpen: false,
+        isScannerModalOpen: false,
+        isSearchModalOpen: false,
+        toasts: []
+      };
+
+      // Wipe localStorage completely and re-save clean demo state
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
+      set(freshState);
+      saveState(freshState);
+
+      get().addToast({
+        type: 'success',
+        title: '🔄 Demo Reset Complete',
+        message: 'All mastery, quiz history, and study plan restored to demo baseline.'
+      });
+    }
   };
 });

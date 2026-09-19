@@ -37,6 +37,7 @@ export const AITutorPage: React.FC = () => {
     saveMessageToNotes,
     addStudySession,
     knowledgeNodes,
+    studentProfile,
     addToast
   } = useEduNexusStore();
 
@@ -82,10 +83,21 @@ export const AITutorPage: React.FC = () => {
     setIsTyping(true);
 
     try {
+      // Build context from recent messages for conversational AI
+      const recentMessages = (activeSession?.messages || [])
+        .slice(-6)
+        .map((m) => ({ sender: m.sender, content: m.content }));
+
       const response = await generateAIResponse(
         messageText,
         currentTopic,
-        activeSession?.courseName || 'DBMS'
+        activeSession?.courseName || 'DBMS',
+        {
+          studentName: studentProfile.name,
+          overallMastery: studentProfile.overallMastery,
+          weakNodes: knowledgeNodes,
+          recentMessages
+        }
       );
 
       setIsTyping(false);
@@ -99,6 +111,11 @@ export const AITutorPage: React.FC = () => {
     } catch (e) {
       console.error(e);
       setIsTyping(false);
+      addToast({
+        type: 'error',
+        title: 'AI Tutor Unavailable',
+        message: 'Could not reach the AI. Your learning data is safe. Please retry.'
+      });
     }
   };
 

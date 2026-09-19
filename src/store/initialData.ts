@@ -520,6 +520,11 @@ export const initialKnowledgeEdges: KnowledgeEdge[] = [
   { id: 'e11', source: 'node-dsa-bst', target: 'node-dsa-graphs', label: 'Generalizes to' }
 ];
 
+// Dynamic date helpers — always relative to TODAY so the plan never shows stale dates
+const today = () => new Date().toISOString().split('T')[0];
+const tomorrow = () => { const d = new Date(); d.setDate(d.getDate() + 1); return d.toISOString().split('T')[0]; };
+const daysFromNow = (n: number) => { const d = new Date(); d.setDate(d.getDate() + n); return d.toISOString().split('T')[0]; };
+
 export const initialStudySessions: StudySession[] = [
   {
     id: 'session-01',
@@ -528,7 +533,7 @@ export const initialStudySessions: StudySession[] = [
     courseId: 'course-dbms',
     timeSlot: '09:00 - 10:00',
     durationMinutes: 60,
-    date: '2026-09-19',
+    date: today(),
     type: 'lecture',
     priority: 'high',
     completed: true,
@@ -541,7 +546,7 @@ export const initialStudySessions: StudySession[] = [
     courseId: 'course-dbms',
     timeSlot: '10:30 - 11:30',
     durationMinutes: 60,
-    date: '2026-09-19',
+    date: today(),
     type: 'practice',
     priority: 'medium',
     completed: true
@@ -553,7 +558,7 @@ export const initialStudySessions: StudySession[] = [
     courseId: 'course-python',
     timeSlot: '14:00 - 15:00',
     durationMinutes: 60,
-    date: '2026-09-19',
+    date: today(),
     type: 'lecture',
     priority: 'medium',
     completed: true
@@ -565,7 +570,7 @@ export const initialStudySessions: StudySession[] = [
     courseId: 'course-dbms',
     timeSlot: '18:00 - 18:30',
     durationMinutes: 30,
-    date: '2026-09-19',
+    date: today(),
     type: 'quiz',
     priority: 'high',
     completed: false,
@@ -579,7 +584,7 @@ export const initialStudySessions: StudySession[] = [
     courseId: 'course-dbms',
     timeSlot: '20:00 - 20:45',
     durationMinutes: 45,
-    date: '2026-09-19',
+    date: today(),
     type: 'revision',
     priority: 'high',
     completed: false,
@@ -592,7 +597,7 @@ export const initialStudySessions: StudySession[] = [
     courseId: 'course-dsa',
     timeSlot: '10:00 - 11:30',
     durationMinutes: 90,
-    date: '2026-09-20',
+    date: tomorrow(),
     type: 'practice',
     priority: 'medium',
     completed: false
@@ -604,7 +609,7 @@ export const initialStudySessions: StudySession[] = [
     courseId: 'course-networks',
     timeSlot: '15:00 - 16:00',
     durationMinutes: 60,
-    date: '2026-09-20',
+    date: tomorrow(),
     type: 'lecture',
     priority: 'medium',
     completed: false

@@ -9,12 +9,13 @@ import {
   Bell,
   Sparkles,
   BookOpen,
-  LogOut
+  LogOut,
+  RotateCcw
 } from 'lucide-react';
 
 export const SettingsPage: React.FC = () => {
   const navigate = useNavigate();
-  const { studentProfile, toggleTheme, updateProfile, logout, addToast } = useEduNexusStore();
+  const { studentProfile, toggleTheme, updateProfile, logout, addToast, resetToDemo } = useEduNexusStore();
 
   const handleToggleTheme = (theme: 'light' | 'dark' | 'system') => {
     if (theme === 'dark') {
@@ -176,6 +177,31 @@ export const SettingsPage: React.FC = () => {
         >
           <LogOut className="w-4 h-4" />
           <span>Log Out from EduNexus</span>
+        </button>
+      </div>
+
+      {/* Demo Reset Card — for presentations and judge demos */}
+      <div className="p-6 sm:p-8 rounded-3xl bg-amber-950/20 border border-amber-500/20 shadow-xs space-y-3">
+        <div className="flex items-center gap-2">
+          <RotateCcw className="w-5 h-5 text-amber-500" />
+          <div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Demo Reset</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Restores all mastery scores, quiz history, study plan, and notifications to the baseline demo state.
+              Use before live demonstrations.
+            </p>
+          </div>
+        </div>
+        <button
+          onClick={() => {
+            if (window.confirm('Reset all data to demo baseline? This will clear all quiz history, mastery changes, and added study sessions.')) {
+              resetToDemo();
+            }
+          }}
+          className="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-xs flex items-center gap-2 transition-all"
+        >
+          <RotateCcw className="w-4 h-4" />
+          <span>Reset to Demo Baseline</span>
         </button>
       </div>
     </div>
