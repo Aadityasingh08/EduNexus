@@ -5,10 +5,26 @@
   <p><strong>Next-Generation Academic Operating System</strong></p>
 
   <p>
+    <a href="https://edunexus-blush.vercel.app" target="_blank">
+      <img src="https://img.shields.io/badge/Live%20Demo-edunexus--blush.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel Live Demo" />
+    </a>
+    <a href="https://edunexus-blush.vercel.app" target="_blank">
+      <img src="https://img.shields.io/badge/Status-Online%20%E2%9C%94-success?style=for-the-badge" alt="Deployment Status" />
+    </a>
+  </p>
+
+  <p>
     An intelligent, context-aware learning platform designed to streamline student workflows. Featuring AI-powered study assistance, dynamic knowledge graphs, and adaptive scheduling.
   </p>
   
   <p>
+    <a href="https://edunexus-blush.vercel.app" target="_blank">
+      <strong>🚀 Launch Live Application (Vercel) →</strong>
+    </a>
+  </p>
+
+  <p>
+    <a href="#-live-demo">Live Demo</a> •
     <a href="#features">Features</a> •
     <a href="#tech-stack">Tech Stack</a> •
     <a href="#installation">Installation</a> •
@@ -68,9 +84,24 @@
    npm run build
    ```
 
-## 🌐 Deployment
-- **Frontend**: Designed to be deployed on Vercel. A custom `vercel.json` is included to handle SPA routing seamlessly.
-- **Backend**: Can be hosted on Render.com using the included `server.js` and `npm start` script.
+## 🌐 Live Demo & Deployment
+
+The application is deployed and actively running on Vercel:
+
+<div align="center" style="margin: 20px 0;">
+  <a href="https://edunexus-blush.vercel.app" target="_blank">
+    <img src="https://img.shields.io/badge/🔗%20Open%20Live%20Application-edunexus--blush.vercel.app-F59E0B?style=for-the-badge&logoColor=white" alt="Open Live App" />
+  </a>
+</div>
+
+| Environment | Platform | URL | Status |
+| :--- | :--- | :--- | :--- |
+| **Production Live Web App** | **Vercel** | [https://edunexus-blush.vercel.app](https://edunexus-blush.vercel.app) | ![Vercel](https://img.shields.io/badge/Vercel-Online-success?logo=vercel) |
+| **Source Code Repository** | **GitHub** | [Aadityasingh08/EduNexus](https://github.com/Aadityasingh08/EduNexus) | ![GitHub](https://img.shields.io/badge/Git-Active-blue?logo=github) |
+
+### Deployment Details:
+- **Frontend (Vercel)**: Continuous deployment from the `master` branch. Fully configured with `vercel.json` rewrite rules to support React Router SPA client routing and instant page reloads.
+- **Backend (Render Optional)**: Node/Express runner included via `server.js` (`npm start`) for containerized host environments.
 
 ---
 
